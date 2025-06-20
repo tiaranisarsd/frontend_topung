@@ -1,0 +1,254 @@
+* {
+    font-family: 'Montserrat',sans-serif;
+  }
+
+  html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-light2 {
+    background-color: #FAFAFA;
+}
+
+
+.text-blue{
+    color: #12175E;
+}
+
+.blue-hover:hover {
+    color: #585fc2;
+}
+
+.bgblue-hover:hover {
+  background-color: rgba(18, 23, 94, 0.4);
+} 
+
+.bgblue-hover50:hover {
+  background-color: rgba(18, 23, 94, 0.6);
+} 
+
+.bgblue-opacity{
+  background-color: rgba(18, 23, 94, 0.1);
+}
+
+.bg-blue{
+  background-color: #12175E;
+}
+
+.btn-reservasi {
+  background-color: white !important;
+  color: #12175E !important;
+  border: 2px solid #12175E !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-reservasi:hover,
+.btn-reservasi:focus,
+.btn-reservasi:active {
+  background-color: #12175E !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+
+.bg-blue2{
+    background-color: #f2f4f8;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #585fc2; 
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  
+  .carousel-indicators {
+      bottom: -50px; 
+      margin-top: 25px;
+    }
+  
+  .carousel-indicators .active {
+    background-color: #12175E;
+    opacity: 1;
+  }
+
+  .bgblue-opacity50 {
+    background-color: rgba(18, 23, 94, 0.6);
+  }
+
+  .fs-16{
+    font-size: 16px;
+  }
+
+    .fs-14{
+    font-size: 14px;
+  }
+
+    .fs-12{
+    font-size: 12px;
+  }
+
+  .custom-table {
+  background-color: #f2f4f8 !important;
+  color: #12175E !important;
+  border-radius: 18px !important;
+}
+
+.custom-table th,
+.custom-table td {
+  background-color: #f2f4f8 !important;
+  color: #12175E !important;
+}
+
+  .modal-backdrop-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .img-fullscreen {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  
+  .btn-close-custom {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    z-index: 1060;
+  }
+
+  .btn-close {
+  filter:grayscale(1); 
+  background-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  opacity: 1 !important;
+}
+
+
+  .star-rating {
+    cursor: pointer;
+    transition: color 0.1s;
+    color: #ffc107;
+  }
+  
+  .star-rating.hovered {
+    color: #ffc107 !important; 
+  }
+  
+  .btn-tinjauan-icon {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  .btn-tinjauan-icon:hover {
+    color: #585fc2; 
+    
+  }
+
+  .bg-footer{
+    background-color: #F1F9FC;
+  }
+
+
+  .card-hover:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+   .modal-backdrop-custom {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.85);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+
+   .media-fullscreen {
+     max-width: 90%;
+     max-height: 90vh;
+     object-fit: contain;
+     border-radius: 8px;
+   }
+
+   .btn-close-custom {
+     position: absolute;
+     top: 20px;
+     right: 20px;
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 0;
+   }
+
+        .position-relative {
+       position: relative;
+     }
+
+     .video-icon-overlay {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       background: rgba(0, 0, 0, 0.5);
+       border-radius: 50%;
+       width: 60px;
+       height: 60px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       pointer-events: none; 
+     }
+     
+   
+  
+
+@media (max-width: 768px) {
+    .logo-navbar {
+      width: 40px; 
+      height: 40px;
+    }
+    
+    .navbar{
+        height: 50px;
+    }
+
+    .card-jadwal{
+      font-size: 14px;
+      padding: 2px;
+      margin: 1px;
+    }
+
+     .btn-reservasi,
+     .btn-outline-primary {
+       width: 70%;
+       margin-left: 70px;
+       margin-bottom: 1rem;
+     }
+   }
+   
+
+
+  @media (max-width: 576px) {
+
+  }
