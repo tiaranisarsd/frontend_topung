@@ -14,7 +14,7 @@ const DokumentasiAdmin = () => {
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastVariant, setToastVariant] = useState('success');
+  const [toastVariant, setToastVariant] = useState('Selesai');
   const [dokumentasiToDelete, setDokumentasiAdminToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showMediaModal, setShowMediaModal] = useState(false); 
@@ -49,7 +49,7 @@ const DokumentasiAdmin = () => {
       await axios.delete(`http://localhost:5000/dokumentasi/${dokumentasiToDelete}`);
       setShowDeleteModal(false);
       setToastMessage('Dokumentasi berhasil dihapus!');
-      setToastVariant('success');
+      setToastVariant('Selesai');
       setShowToast(true);
       getDokumentasiAdmin();
     } catch (err) {

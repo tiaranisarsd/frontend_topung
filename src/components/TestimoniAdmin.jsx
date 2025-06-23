@@ -14,7 +14,7 @@ const TestimoniAdmin = () => {
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastVariant, setToastVariant] = useState('success');
+  const [toastVariant, setToastVariant] = useState('Selesai');
   const [testimoniToDelete, setTestimoniAdminToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showMediaModal, setShowMediaModal] = useState(false); 
@@ -49,7 +49,7 @@ const TestimoniAdmin = () => {
       await axios.delete(`http://localhost:5000/testimoni/${testimoniToDelete}`);
       setShowDeleteModal(false);
       setToastMessage('Testimoni berhasil dihapus!');
-      setToastVariant('success');
+      setToastVariant('Selesai');
       setShowToast(true);
       getTestimoniAdmin();
     } catch (err) {

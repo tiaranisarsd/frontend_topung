@@ -102,7 +102,7 @@ const JadwalTerapis = () => {
         }
     };
 
-    const canEdit = users && (users.role === 'owner' || users.id === Number(selectedUserId));
+    const canEdit = users && (users.id === Number(selectedUserId));
 
     // Filter usersList berdasarkan role: owner melihat semua, non-owner hanya melihat dirinya sendiri
     const filteredUsersList = users && users.role === 'owner'

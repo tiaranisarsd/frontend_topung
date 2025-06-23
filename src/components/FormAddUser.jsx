@@ -87,11 +87,11 @@ const FormAddUser = () => {
       formData.append("alamat", alamat); 
       
       if (gambar) {
-        console.log(`Appending gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
+        console.log(`ApMenunggu gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
         formData.append("gambar", gambar);
       }
       if (cv_pdf) {
-        console.log(`Appending cv_pdf to FormData: ${cv_pdf.name}, Type: ${cv_pdf.type}`);
+        console.log(`ApMenunggu cv_pdf to FormData: ${cv_pdf.name}, Type: ${cv_pdf.type}`);
         formData.append("cv_pdf", cv_pdf);
       }
 

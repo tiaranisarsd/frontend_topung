@@ -36,7 +36,7 @@ const FormAddDokumentasi = () => {
       formData.append("judul", judul);
       
       if (gambar) {
-        console.log(`Appending gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
+        console.log(`ApMenunggu gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
         formData.append("gambar", gambar); 
       }
 

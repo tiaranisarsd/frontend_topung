@@ -265,7 +265,7 @@ const handleSubmit = async (e) => {
       payload.append('pembayaran', formData.pembayaran); 
       payload.append('userId', userId); 
       payload.append('jadwalId', jadwalId); // Pastikan nama field sesuai dengan backend
-      payload.append('status', 'pending');
+      payload.append('status', 'Menunggu');
 
       if (buktiPembayaran) {
         payload.append('bukti_pembayaran', buktiPembayaran);
@@ -284,7 +284,7 @@ const handleSubmit = async (e) => {
         pembayaran: formData.pembayaran,
         userId: userId,
         jadwalId: jadwalId, // Pastikan nama field sesuai dengan backend
-        status: 'pending',
+        status: 'Menunggu',
       };
 
       headers = { 'Content-Type': 'application/json' };
@@ -338,7 +338,7 @@ const handleSubmit = async (e) => {
     console.error(error.response?.data || error.message);
     // Check if the error is due to a 400 status code
     if (error.response && error.response.status === 400) {
-      setMsg(error.response.data.msg || "Maaf, jadwal yang Anda pilih sudah dipesan oleh pelanggan lain dan sedang dalam proses. Silakan pilih jadwal lain.");
+      setMsg(error.response.data.msg || "Maaf, jadwal yang Anda pilih sudah dipesan oleh pelanggan lain dan sedang dalam Disetujui. Silakan pilih jadwal lain.");
     } else {
       setMsg('Terjadi kesalahan saat mengirim reservasi: ' + (error.response?.data?.msg || error.message));
     }

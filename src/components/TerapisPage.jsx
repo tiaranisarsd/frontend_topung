@@ -72,136 +72,158 @@ const TerapisKamiPage = () => {
     fetchAvailableJadwal();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSuccessMessage('');
-    setCountdown(0);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSuccessMessage('');
+  setCountdown(0);
 
-    try {
-      const userId = parseInt(formData.userId, 10);
-      const jadwalId = parseInt(formData.jadwalId, 10);
-
-      if (formData.pembayaran === 'Transfer' && !buktiPembayaran) {
-        setMsg("Mohon unggah bukti pembayaran untuk metode Transfer.");
-        setShowToast(true);
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (!formData.userId || !formData.layanan || !formData.tanggal_waktu || !formData.nama || !formData.usia || !formData.no_telp || !formData.alamat || !formData.keluhan || !formData.pembayaran || !formData.jadwalId) {
-        setMsg("Semua bidang harus diisi.");
-        setShowToast(true);
-        setIsSubmitting(false);
-        return;
-      }
-
-      let noTelpToSubmit = formData.no_telp.trim();
-      noTelpToSubmit = noTelpToSubmit.replace(/[^0-9+]/g, '');
-
-      if (noTelpToSubmit.startsWith('+')) {
-        noTelpToSubmit = noTelpToSubmit.substring(1);
-      }
-
-      if (noTelpToSubmit.startsWith('0')) {
-        noTelpToSubmit = noTelpToSubmit.substring(1);
-      }
-
-      if (!noTelpToSubmit.startsWith('62')) {
-        noTelpToSubmit = '62' + noTelpToSubmit;
-      }
-
-      let payload;
-      let headers;
-
-      if (formData.pembayaran === 'Transfer') {
-        payload = new FormData();
-        payload.append('layanan', formData.layanan);
-        payload.append('tanggal_waktu', formData.tanggal_waktu);
-        payload.append('nama', formData.nama);
-        payload.append('usia', formData.usia);
-        payload.append('no_telp', noTelpToSubmit);
-        payload.append('alamat', formData.alamat);
-        payload.append('keluhan', formData.keluhan);
-        payload.append('pembayaran', formData.pembayaran);
-        payload.append('userId', userId);
-        payload.append('jadwalTerapisId', jadwalId); 
-        payload.append('status', 'pending');
-
-        if (buktiPembayaran) {
-          payload.append('bukti_pembayaran', buktiPembayaran);
-        }
-
-        headers = { 'Content-Type': 'multipart/form-data' };
-      } else {
-        payload = {
-          layanan: formData.layanan,
-          tanggal_waktu: formData.tanggal_waktu,
-          nama: formData.nama,
-          usia: formData.usia || '',
-          no_telp: noTelpToSubmit || '',
-          alamat: formData.alamat,
-          keluhan: formData.keluhan,
-          pembayaran: formData.pembayaran,
-          userId: userId,
-          jadwalId: jadwalId,
-          status: 'pending',
-        };
-
-        headers = { 'Content-Type': 'application/json' };
-      }
-
-      // Kirim request POST ke endpoint reservasi
-      await axios.post('http://localhost:5000/reservasi', payload, { headers });
-
-      setSuccessMessage('Reservasi berhasil dikirim! Anda akan diarahkan ke WhatsApp dalam');
-
-      const currentTerapis = selectedTerapis;
-      const currentFormDataForWhatsapp = { ...formData, no_telp: noTelpToSubmit };
-
-      let timeLeft = 3;
-      setCountdown(timeLeft);
-
-      const countdownInterval = setInterval(() => {
-        timeLeft -= 1;
-        setCountdown(timeLeft);
-
-        if (timeLeft <= 0) {
-          clearInterval(countdownInterval);
-
-          kirimKeWhatsapp(currentTerapis, currentFormDataForWhatsapp);
-
-          setFormData({
-            layanan: '',
-            tanggal_waktu: '',
-            nama: '',
-            usia: '',
-            no_telp: '',
-            harga: '',
-            alamat: '',
-            keluhan: '',
-            pembayaran: '',
-            bank: '',
-            no_rekening: '',
-            userId: '',
-            jadwalId: '',
-          });
-
-          setBuktiPembayaran(null);
-          setSelectedTerapis(null);
-          setShowModal(false);
-          setSuccessMessage('');
-          setCountdown(0);
-        }
-      }, 1000);
-    } catch (error) {
-      console.error(error.response?.data || error.message);
-      setMsg('Terjadi kesalahan saat mengirim reservasi: ' + (error.response?.data?.msg || error.message));
+  try {
+    const userId = parseInt(formData.userId, 10);
+    const jadwalId = formData.jadwalId ? parseInt(formData.jadwalId, 10) : 0; // Ensure jadwalId is not null
+    
+    if (formData.pembayaran === 'Transfer' && !buktiPembayaran) {
+      setMsg("Mohon unggah bukti pembayaran untuk metode Transfer.");
       setShowToast(true);
-    } finally {
       setIsSubmitting(false);
+      return;
     }
-  };
+
+    if (!formData.userId || formData.layanan === '' || formData.tanggal_waktu === '' || formData.nama === '' || formData.no_telp === '' || formData.alamat === '' || formData.keluhan === '' || formData.pembayaran === '') {
+      setMsg("Semua bidang harus diisi.");
+      setShowToast(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.usia || formData.usia === '') {
+      setMsg("Usia harus diisi.");
+      setShowToast(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!formData.jadwalId || formData.jadwalId === '') {
+      setMsg("Silakan pilih jadwal terapis.");
+      setShowToast(true);
+      setIsSubmitting(false);
+      return;
+    }
+
+    let noTelpToSubmit = formData.no_telp.trim(); 
+    noTelpToSubmit = noTelpToSubmit.replace(/[^0-9+]/g, '');
+
+    if (noTelpToSubmit.startsWith('+')) {
+      noTelpToSubmit = noTelpToSubmit.substring(1);
+    }
+
+    if (noTelpToSubmit.startsWith('0')) {
+      noTelpToSubmit = noTelpToSubmit.substring(1);
+    }
+
+    if (!noTelpToSubmit.startsWith('62')) {
+      noTelpToSubmit = '62' + noTelpToSubmit;
+    }
+
+    let payload;
+    let headers;
+
+    console.log("Submitting jadwalId:", jadwalId); // Log untuk debugging
+
+    if (formData.pembayaran === 'Transfer') {
+      payload = new FormData();
+      payload.append('layanan', formData.layanan);
+      payload.append('tanggal_waktu', formData.tanggal_waktu);
+      payload.append('nama', formData.nama);
+      payload.append('usia', formData.usia); 
+      payload.append('no_telp', noTelpToSubmit);
+      payload.append('alamat', formData.alamat);
+      payload.append('keluhan', formData.keluhan);
+      payload.append('pembayaran', formData.pembayaran); 
+      payload.append('userId', userId); 
+      payload.append('jadwalId', jadwalId); // Pastikan nama field sesuai dengan backend
+      payload.append('status', 'Menunggu');
+
+      if (buktiPembayaran) {
+        payload.append('bukti_pembayaran', buktiPembayaran);
+      }
+
+      headers = { 'Content-Type': 'multipart/form-data' };
+    } else {
+      payload = {
+        layanan: formData.layanan,
+        tanggal_waktu: formData.tanggal_waktu,
+        nama: formData.nama,
+        usia: formData.usia || '',
+        no_telp: noTelpToSubmit || '',
+        alamat: formData.alamat,
+        keluhan: formData.keluhan,
+        pembayaran: formData.pembayaran,
+        userId: userId,
+        jadwalId: jadwalId, // Pastikan nama field sesuai dengan backend
+        status: 'Menunggu',
+      };
+
+      headers = { 'Content-Type': 'application/json' };
+    }
+
+    // Send the POST request
+    await axios.post('http://localhost:5000/reservasi', payload, { headers });
+
+    setSuccessMessage('Reservasi berhasil dikirim! Anda akan diarahkan ke WhatsApp dalam');
+    
+    const currentTerapis = selectedTerapis;
+    const currentFormDataForWhatsapp = { ...formData, no_telp: noTelpToSubmit }; 
+    
+    let timeLeft = 3;
+    setCountdown(timeLeft);
+    
+    const countdownInterval = setInterval(() => {
+      timeLeft -= 1;
+      setCountdown(timeLeft);
+      
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        
+        kirimKeWhatsapp(currentTerapis, currentFormDataForWhatsapp); 
+        
+        setFormData({
+          namaTerapis: '',
+          layanan: '',
+          tanggal_waktu: '',
+          nama: '',
+          usia: '',
+          no_telp: '',
+          alamat: '',
+          keluhan: '',
+          pembayaran: '',
+          bank: '',
+          no_rekening: '',
+          userId: '', 
+          bukti_pembayaran: '',
+          jadwalId: ''
+        });
+    
+        setBuktiPembayaran(null); 
+        setSelectedTerapis(null);
+        setShowModal(false); 
+        setSuccessMessage('');
+        setCountdown(0);
+      }
+    }, 1000);
+  } catch (error) {
+    console.error(error.response?.data || error.message);
+    // Check if the error is due to a 400 status code
+    if (error.response && error.response.status === 400) {
+      setMsg(error.response.data.msg || "Maaf, jadwal yang Anda pilih sudah dipesan oleh pelanggan lain dan sedang dalam Disetujui. Silakan pilih jadwal lain.");
+    } else {
+      setMsg('Terjadi kesalahan saat mengirim reservasi: ' + (error.response?.data?.msg || error.message));
+    }
+    setShowToast(true);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -316,10 +338,10 @@ const handleOpenModal = (user) => {
   };
 
   // Filter jadwal yang tersedia berdasarkan terapis yang dipilih
-  const getAvailableJadwalForTerapis = () => {
-    if (!selectedTerapis) return [];
-    return availableJadwal.filter(jadwal => jadwal.userId === selectedTerapis.id);
-  };
+const getAvailableJadwalForTerapis = () => {
+  if (!selectedTerapis || !Array.isArray(availableJadwal)) return [];
+  return availableJadwal.filter(jadwal => jadwal.userId === selectedTerapis.id);
+};
 
   return (
     <div className="container py-5">

@@ -88,7 +88,7 @@ const handleSubmit = async (e) => {
             payload.append('pembayaran', formData.pembayaran); // Ensure this is a string
             payload.append('userId', userId); // Ensure userId is an integer
             payload.append('jadwalId', jadwalId); // Ensure jadwalId is an integer or null
-            payload.append('status', 'pending');
+            payload.append('status', 'Menunggu');
 
             if (buktiPembayaran) {
                 payload.append('bukti_pembayaran', buktiPembayaran);
@@ -108,7 +108,7 @@ const handleSubmit = async (e) => {
                 userId: userId, // Ensure userId is an integer
                 jadwalId: jadwalId, // Ensure jadwalId is an integer or null
                 bukti_pembayaran: '',
-                status: 'pending',
+                status: 'Menunggu',
             };
 
             headers = { 'Content-Type': 'application/json' };

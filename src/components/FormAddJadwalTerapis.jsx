@@ -111,7 +111,7 @@ const FormAddJadwalTerapis = () => {
                 className="form-select"
                 value={usersId}
                 onChange={(e) => setUsersId(e.target.value)}
-                disabled={users && users.role !== 'owner'} 
+                disabled={usersId} 
               >
                 <option value={user.id} disabled>Pilih Terapis</option>
                 {filteredUsersList.map((user) => (

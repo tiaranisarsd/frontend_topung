@@ -126,7 +126,7 @@ const handleSubmit = async (e) => {
         payload.append('keluhan', formData.keluhan);
         payload.append('pembayaran', formData.pembayaran);
         payload.append('userId', formData.userId);
-        payload.append('status', 'pending');
+        payload.append('status', 'Menunggu');
 
         if (buktiPembayaran) {
             payload.append('bukti_pembayaran', buktiPembayaran);
@@ -145,7 +145,7 @@ const handleSubmit = async (e) => {
             pembayaran: formData.pembayaran,
             userId: formData.userId,
             bukti_pembayaran: '',
-            status: 'pending',
+            status: 'Menunggu',
         };
 
         headers = { 'Content-Type': 'application/json' };

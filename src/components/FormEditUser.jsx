@@ -153,14 +153,14 @@ const FormEditUser = () => {
       formDataToSend.append("alamat", alamat);
       
       if (gambar) {
-        console.log(`Appending new gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
+        console.log(`ApMenunggu new gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
         formDataToSend.append("gambar", gambar);
       } else if (existingGambar) {
         formDataToSend.append("existingGambar", existingGambar);
       }
 
       if (cv_pdf) {
-        console.log(`Appending new cv_pdf to FormData: ${cv_pdf.name}, Type: ${cv_pdf.type}`);
+        console.log(`ApMenunggu new cv_pdf to FormData: ${cv_pdf.name}, Type: ${cv_pdf.type}`);
         formDataToSend.append("cv_pdf", cv_pdf);
       } else if (existingCvPdf) {
         formDataToSend.append("existingCvPdf", existingCvPdf);

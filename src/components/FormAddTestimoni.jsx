@@ -32,7 +32,7 @@ const FormAddTestimoni = () => {
       const formData = new FormData();
       
       if (media) {
-        console.log(`Appending media to FormData: ${media.name}, Type: ${media.type}`);
+        console.log(`ApMenunggu media to FormData: ${media.name}, Type: ${media.type}`);
         formData.append("media", media); 
       }
 

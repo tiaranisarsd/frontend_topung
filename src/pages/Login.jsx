@@ -7,15 +7,13 @@ const Login = () => {
   const location = useLocation();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastBg, setToastBg] = useState('success');  // Set default background as success
+  const [toastBg, setToastBg] = useState('success');  
 
   useEffect(() => {
-    // If there's a message passed in the state from navigate
     if (location.state && location.state.message) {
       setToastMessage(location.state.message);
       setShowToast(true);
 
-      // If the message indicates an error, change the toast background to danger
       if (location.state.message.includes("invalid") || location.state.message.includes("expired")) {
         setToastBg('danger');
       }
@@ -33,7 +31,7 @@ const Login = () => {
           show={showToast} 
           delay={2000} 
           autohide 
-          bg={toastBg} // Toast background changes based on message type
+          bg={toastBg}
         >
           <Toast.Header closeButton={false}>
             <strong className="me-auto">Notifikasi</strong>

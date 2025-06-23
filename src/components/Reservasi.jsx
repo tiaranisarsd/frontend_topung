@@ -18,7 +18,7 @@ const Reservasi = () => {
   const [error, setError] = useState(null); 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastBg, setToastBg] = useState('success'); 
+  const [toastBg, setToastBg] = useState('Selesai'); 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [reservasiToDelete, setReservasiToDelete] = useState(null); 
   const [showImage, setShowImage] = useState(false); 
@@ -118,38 +118,38 @@ const Reservasi = () => {
 
 const handleStatusChange = async (id, currentStatus, index, jadwalId) => {
 
-  if (currentStatus === 'success') {
+  if (currentStatus === 'Selesai') {
     setToastMessage('Status sudah selesai dan tidak dapat diubah.');
     setToastBg('danger');
     setShowToast(true);
     return; 
   }
 
-  if (currentStatus === 'batal') {
+  if (currentStatus === 'Dibatalkan') {
     setToastMessage('Status sudah dibatalkan dan tidak dapat diubah.');
     setToastBg('danger');
     setShowToast(true);
     return; 
   }
 
-  const nextStatus = currentStatus === 'pending' ? 'proses' : currentStatus === 'proses' ? 'success' : 'batal';
+  const nextStatus = currentStatus === 'Menunggu' ? 'Disetujui' : currentStatus === 'Disetujui' ? 'Selesai' : 'Dibatalkan';
   try {
     const updatedReservasi = [...filteredReservasi];
 
     // Update status
     updatedReservasi[index].status = nextStatus;
 
-    if (nextStatus === 'proses') {
+    if (nextStatus === 'Disetujui') {
       if (jadwalId && jadwalId !== '0') {
-        updatedReservasi[index].tanggal_waktu = 'berhasil diproses untuk tanggal ini';
+        updatedReservasi[index].tanggal_waktu = 'berhasil diDisetujui untuk tanggal ini';
       } else {
-        updatedReservasi[index].status = 'batal';
-        updatedReservasi[index].tanggal_waktu = 'reservasi dibatalkan karena jadwal tidak tersedia';
+        updatedReservasi[index].status = 'Dibatalkan';
+        updatedReservasi[index].tanggal_waktu = 'reservasi diDibatalkankan karena jadwal tidak tersedia';
         
         // Kirim pesan ke pelanggan melalui WhatsApp
         const reservasi = updatedReservasi[index];
         const pelangganNoTelp = reservasi.no_telp;
-        const pesanDefault = "Mohon maaf, reservasi Anda telah dibatalkan karena jadwal yang Anda pilih sudah diproses untuk pelanggan lain terlebih dahulu. Kami mohon maaf atas ketidaknyamanan ini. Silakan hubungi kami untuk memilih jadwal lain. Terima kasih.";
+        const pesanDefault = "Mohon maaf, reservasi Anda telah diDibatalkankan karena jadwal yang Anda pilih sudah diDisetujui untuk pelanggan lain terlebih dahulu. Kami mohon maaf atas ketidaknyamanan ini. Silakan hubungi kami untuk memilih jadwal lain. Terima kasih.";
         const url = `https://wa.me/${pelangganNoTelp}?text=${encodeURIComponent(pesanDefault)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
       }
@@ -381,9 +381,9 @@ const handleStatusChange = async (id, currentStatus, index, jadwalId) => {
                     <Dropdown align="end" className="ms-2">
                       <Dropdown.Toggle variant="link" className="p-0 text-dark" id="dropdown-basic">
                         <span
-                          className={`badge ${item.status === "pending" ? "bg-warning" : 
-                            item.status === "proses" ? "bg-info" : 
-                            item.status === "batal" ? "bg-danger" : 
+                          className={`badge ${item.status === "Menunggu" ? "bg-warning" : 
+                            item.status === "Disetujui" ? "bg-info" : 
+                            item.status === "Dibatalkan" ? "bg-danger" : 
                             "bg-success"}`}
                         >
                           {item.status}
@@ -392,7 +392,7 @@ const handleStatusChange = async (id, currentStatus, index, jadwalId) => {
 
                       <Dropdown.Menu>
                         <Dropdown.Item onClick={() => handleStatusChange(item.id, item.status, index, item.jadwalId)}>
-                          {item.status === "pending" ? "Proses" : item.status === "proses" ? "Selesai" : "Pending"}
+                          {item.status === "Menunggu" ? "Proses" : item.status === "Disetujui" ? "Selesai" : "Pending"}
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
