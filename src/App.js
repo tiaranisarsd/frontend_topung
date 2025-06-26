@@ -10,8 +10,6 @@ import UsersList from "./pages/UsersList";
 import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import ReservasiList from "./pages/ReservasiList";
-import AddReservasi from "./pages/AddReservasi";
-import EditReservasi from "./pages/EditReservasi";
 import JadwalTerapisList from "./pages/JadwalTerapisList";
 import AddJadwalTerapis from "./pages/AddJadwalTerapis";
 import EditJadwalTerapis from "./pages/EditJadwalTerapis";
@@ -22,8 +20,6 @@ import JadwalKegiatanList from "./pages/JadwalKegiatanList";
 import AddJadwalKegiatan from "./pages/AddJadwalKegiatan";
 import EditJadwalKegiatan from "./pages/EditJadwalKegiatan";
 import TinjauanList from "./pages/TinjauanList";
-import AddTinjauan from "./pages/AddTinjauan";
-import EditTinjauan from "./pages/EditTinjauan";
 import PertanyaanList from "./pages/PertanyaanList";
 import AddPertanyaan from "./pages/AddPertanyaan";
 import EditPertanyaan from "./pages/EditPertanyaan";
@@ -49,8 +45,6 @@ function App() {
       <Route path="/users/add" element={<AddUser />}/>
       <Route path="/users/edit/:id" element={<EditUser />}/>
       <Route path="/reservasi" element={<ReservasiList />}/>
-      <Route path="/reservasi/add" element={<AddReservasi />}/>
-      <Route path="/reservasi/edit/:id" element={<EditReservasi />}/>
       <Route path="/jadwalTerapis" element={<JadwalTerapisList />} />
       <Route path="/jadwalTerapis/add/:userId" element={<AddJadwalTerapis />} />
       <Route path="/jadwalTerapis/edit/users/:userId/:id" element={<EditJadwalTerapis />} />
@@ -60,9 +54,7 @@ function App() {
       <Route path="/jadwalKegiatan" element={<JadwalKegiatanList />}/>
       <Route path="/jadwalKegiatan/add" element={<AddJadwalKegiatan />}/>
       <Route path="/jadwalKegiatan/edit/:id" element={<EditJadwalKegiatan />}/>
-      <Route path="/tinjauan" element={<TinjauanList />}/>
-      <Route path="/tinjauan/add" element={<AddTinjauan />}/>
-      <Route path="/tinjauan/edit/:id" element={<EditTinjauan />}/>
+      <Route path="/ulasan" element={<TinjauanList />}/>
       <Route path="/pertanyaan" element={<PertanyaanList />}/>
       <Route path="/pertanyaan/add" element={<AddPertanyaan />}/>
       <Route path="/pertanyaan/edit/:id" element={<EditPertanyaan />}/>

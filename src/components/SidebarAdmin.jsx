@@ -44,7 +44,7 @@ function Sidebar({ isMobile }) {
     { path: "/jadwalTerapis", icon: <FaUserDoctor size={14} className="me-1" />, label: "Jadwal" },
     { path: "/dokumentasi", icon: <FaPhotoVideo className="me-1" />, label: "Dokumentasi" },
     { path: "/testimoni", icon: <FaRegCommentDots className="me-1" />, label: "Testimoni" },
-    { path: "/tinjauan", icon: <FaComments className="me-1" />, label: "Tinjauan" },
+    { path: "/ulasan", icon: <FaComments className="me-1" />, label: "Ulasan" },
     { path: "/pertanyaan", icon: <FaQuestionCircle className="me-1" />, label: "Pertanyaan" }
   ];
 

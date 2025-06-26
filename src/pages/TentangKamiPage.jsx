@@ -27,7 +27,7 @@ const TentangKamiPage = () => {
           <LoadingIndicator
             animation="border"
             role="status"
-            style={{ width: '5rem', height: '5rem', color: '#007bff' }} //Directly set color.
+            style={{ width: '5rem', height: '5rem', color: '#007bff' }}
           >
             <span className="visually-hidden">Loading...</span>
           </LoadingIndicator>

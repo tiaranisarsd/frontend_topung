@@ -76,7 +76,7 @@ function Edukasi() {
   };
 
   return (
-    <div className="edukasi-page bg-white my-5 pb-5" id='edukasi'>
+    <div className="edukasi-page bg-white my-5 pt-3 pb-5" id='edukasi'>
       <Container>
         <h2 className="text-center text-blue my-4 fw-bold">Edukasi</h2>
 

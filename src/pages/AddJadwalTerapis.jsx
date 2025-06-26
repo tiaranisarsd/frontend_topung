@@ -8,7 +8,7 @@ import { getMe } from "../features/authSlice";
 const AddJadwalTerapis = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isError, jadwalTerapis } = useSelector((state) => state.auth);
+  const { isError } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());
@@ -18,10 +18,7 @@ const AddJadwalTerapis = () => {
     if(isError){
       navigate("/login")
     }
-    if(jadwalTerapis && jadwalTerapis.role !== "owner") {
-      navigate("/jadwalTerapis");
-    }
-  }, [isError, jadwalTerapis, navigate]);
+  }, [isError, navigate]);
 
   return (
     <div>

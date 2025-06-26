@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Card, Form, Alert, Carousel } from "react-bootstrap";
-import { FaStar, FaRegStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaStar, FaRegStar, FaChevronLeft, FaChevronRight, FaCommentDots } from "react-icons/fa";
 import axios from "axios";
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -89,8 +89,8 @@ function Tinjauan() {
       getTinjauan();
       document.getElementById("anonimCheckbox").checked = false;
     } catch (error) {
-      console.error("Error submitting tinjauan:", error);
-      setError("Gagal menambahkan tinjauan.");
+      console.error("Error submitting ulasan:", error);
+      setError("Gagal menambahkan ulasan.");
     } finally {
       setLoading(false);
     }
@@ -104,7 +104,20 @@ function Tinjauan() {
     <>
       <div className="py-5 bg-light2" id="tinjauan">
         <Container>
-          <h2 className="text-center text-blue fw-bold mb-5">Tinjauan</h2>
+          <h2 className="text-center text-blue fw-bold">Ulasan</h2>
+              <div className="mt-2 text-center mb-5">
+            <h6 className="text-muted fw-normal">Kami sangat menghargai pengalaman Anda bersama layanan kami.</h6>
+            <p>
+              <FaCommentDots className="me-2 text-blue" />
+              <a
+                href="/#tambah-ulasan"
+                rel="noopener noreferrer"
+                className=" text-decoration-none text-primary"
+              >
+                Klik di sini untuk memberikan ulasan terbaik Anda!
+              </a>
+            </p>
+          </div>
 
           {loading ? (
             <div className="d-flex justify-content-center my-5">
@@ -155,9 +168,9 @@ function Tinjauan() {
         </Container>
       </div>
 
-      <div className="py-5">
+      <div className="py-5 mt-4" id="tambah-ulasan">
         <Container>
-          <h2 className="text-center text-blue fw-bold mt-2 mb-3">Tambah Tinjauan</h2>
+          <h2 className="text-center text-blue fw-bold mt-2 mb-3">Tambah Ulasan</h2>
           <div className="p-4 border rounded bgblue-opacity shadow w-sm-100  mx-lg-5 mt-4 mx-2">
             {successMessage && <Alert className="text-center" variant="success">{successMessage}</Alert>}
             <Form className="text-blue" onSubmit={handleSubmit}>
@@ -229,7 +242,7 @@ function Tinjauan() {
                   onChange={(e) => setTinjauanText(e.target.value)}
                   required
                 />
-                <Form.Label htmlFor="floatingTinjauan">Tinjauan</Form.Label>
+                <Form.Label htmlFor="floatingTinjauan">Isi Ulasan</Form.Label>
               </Form.Group>
 
               <div className="text-center d-flex justify-content-end">

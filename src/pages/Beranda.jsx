@@ -13,6 +13,7 @@ import Tinjauan from '../components/Tinjauan';
 import Pertanyaan from '../components/Pertanyaan';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
+import CheckReservasiStatus from '../components/CheckStatusReservasi';
 
 const Beranda = () => {
   const [loading, setLoading] = useState(true);
@@ -42,6 +43,7 @@ const Beranda = () => {
         <>
         <Header />
         <Hero />
+        <CheckReservasiStatus />
         <Edukasi />
         <Pelayanan />
         <JadwalKegiatan />

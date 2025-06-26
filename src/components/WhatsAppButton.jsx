@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
+import axios from 'axios';
 
 const WhatsAppButton = () => {
-  const whatsappNumber = "6287872721210"; 
+  const [owner, setOwner] = useState(null);
+
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/users');
+        const ownerUser = response.data.find(user => user.role === 'owner');
+
+        if (ownerUser) {
+          setOwner(ownerUser);
+        }
+      } catch (error) {
+        console.error('Gagal mengambil data owner:', error);
+      }
+    };
+
+    fetchOwner();
+  }, []);
+
+  const whatsappNumber = owner?.no_telp?.replace(/^0/, '62');
 
   const handleClick = () => {
+    if (!whatsappNumber) return;
+
     const message = encodeURIComponent("Hello, Saya ingin bertanya mengenai layanan Totok Punggung");
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
   };
+
+  if (!whatsappNumber) return null; 
 
   return (
     <div
@@ -15,14 +39,14 @@ const WhatsAppButton = () => {
         position: "fixed",
         bottom: "30px",
         right: "20px",
-        backgroundColor: "#25D366", 
+        backgroundColor: "#25D366",
         borderRadius: "50%",
         padding: "15px",
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         cursor: "pointer",
-        zIndex: 9999, 
+        zIndex: 9999,
       }}
-      className='card-hover'
+      className="card-hover"
       onClick={handleClick}
     >
       <FaWhatsapp size={30} color="white" />

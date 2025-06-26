@@ -8,7 +8,7 @@ import { getMe } from "../features/authSlice";
 const EditUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isError, user } = useSelector((state) => state.auth);
+  const { isError } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());
@@ -18,10 +18,7 @@ const EditUser = () => {
     if(isError){
       navigate("/login")
     }
-    if(user && user.role !== "owner") {
-      navigate("/users");
-    }
-  }, [isError, user, navigate]);
+  }, [isError, navigate]);
 
 
   return (

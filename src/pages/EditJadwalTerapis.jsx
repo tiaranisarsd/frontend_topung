@@ -8,7 +8,7 @@ import { getMe } from "../features/authSlice";
 const EditJadwalTerapis = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isError, jadwalTerapis, isLoading } = useSelector((state) => state.auth);
+  const { isError, isLoading } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getMe());
@@ -19,10 +19,8 @@ const EditJadwalTerapis = () => {
 
     if (isError) {
       navigate("/login"); 
-    } else if (jadwalTerapis && jadwalTerapis.role !== "owner") {
-      navigate("/jadwalTerapis"); 
     }
-  }, [isError, jadwalTerapis, isLoading, navigate]);
+  }, [isError, isLoading, navigate]);
 
   return (
     <div>

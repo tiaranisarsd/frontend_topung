@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Container, Table, Button, Alert, Toast, ToastContainer, Modal  } from 'react-bootstrap';
 import axios from "axios";
-import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import LoadingIndicator from './LoadingIndicator';
 
 const Tinjauan = () => {
@@ -45,7 +44,7 @@ const Tinjauan = () => {
       setShowToast(true);
       getTinjauan ();
     } catch (err) {
-      console.error('Error deleting tinjauan:', err);
+      console.error('Error deleting ulasan:', err);
       setError(err.message || "Terjadi kesalahan saat menghapus data.");
     } finally {
       setIsDeleting(false);
@@ -94,10 +93,7 @@ const Tinjauan = () => {
                   </Button>
                 </Modal.Footer>
               </Modal>
-      <h2 className="mt-5 text-blue fw-bold">Daftar Data Tinjauan</h2>
-      <Link style={{ border: 'none' }} to="/tinjauan/add" className="btn btn-primary btn-hover text-white mt-2">
-        <FaPlus /> Tambah Data Tinjauan
-      </Link>
+      <h2 className="mt-5 text-blue fw-bold">Daftar Data Ulasan</h2>
       <div className="mt-3">
         {loading ? (
           <div className="d-flex justify-content-center my-5">
@@ -128,12 +124,6 @@ const Tinjauan = () => {
                   <td>{tinjauan.rating}</td>
                   <td>{tinjauan.tinjauan}</td>
                   <td>
-                    <Link
-                      to={`/tinjauan/edit/${tinjauan.id}`}
-                      className="btn btn-sm btn-info me-2 text-white"
-                    >
-                      <FaEdit />
-                    </Link>
                     <Button
                       variant="danger"
                       size="sm"

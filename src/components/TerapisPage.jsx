@@ -128,8 +128,6 @@ const handleSubmit = async (e) => {
     let payload;
     let headers;
 
-    console.log("Submitting jadwalId:", jadwalId); // Log untuk debugging
-
     if (formData.pembayaran === 'Transfer') {
       payload = new FormData();
       payload.append('layanan', formData.layanan);
@@ -141,7 +139,7 @@ const handleSubmit = async (e) => {
       payload.append('keluhan', formData.keluhan);
       payload.append('pembayaran', formData.pembayaran); 
       payload.append('userId', userId); 
-      payload.append('jadwalId', jadwalId); // Pastikan nama field sesuai dengan backend
+      payload.append('jadwalId', jadwalId);
       payload.append('status', 'Menunggu');
 
       if (buktiPembayaran) {
@@ -160,7 +158,7 @@ const handleSubmit = async (e) => {
         keluhan: formData.keluhan,
         pembayaran: formData.pembayaran,
         userId: userId,
-        jadwalId: jadwalId, // Pastikan nama field sesuai dengan backend
+        jadwalId: jadwalId,
         status: 'Menunggu',
       };
 
@@ -464,7 +462,7 @@ const getAvailableJadwalForTerapis = () => {
             <Modal.Header className='text-white bg-blue' closeButton>
               <Modal.Title className='fw-bold text-white mx-auto me-2'>Reservasi</Modal.Title>
             </Modal.Header>
-            <Modal.Body className='bg-blue2'>
+            <Modal.Body className='bg-blue2 fw-bold'>
               <Form className='my-1 p-1 text-blue'>
                 <Form.Group className="mb-3">
                   <Form.Label>Nama Terapis</Form.Label>
@@ -472,7 +470,7 @@ const getAvailableJadwalForTerapis = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Pelayanan</Form.Label>
+                  <Form.Label className="fw-bold">Pelayanan</Form.Label>
                   <Form.Select
                     value={formData.layanan}
                     onChange={(e) => setFormData({ ...formData, layanan: e.target.value })}
@@ -513,12 +511,12 @@ const getAvailableJadwalForTerapis = () => {
       ) : (
         <Form.Group className="mb-3">
           <Form.Label className="fw-bold">Tanggal & Waktu</Form.Label>
-          <div className="text-danger">Maaf, jadwal untuk terapis ini tidak tersedia saat ini. Silakan hubungi terapis untuk informasi lebih lanjut.</div>
+          <div className="text-danger fw-normal">Maaf, jadwal untuk terapis ini tidak tersedia saat ini. Silakan hubungi terapis untuk informasi lebih lanjut.</div>
         </Form.Group>
       )}
 
       <Form.Group className="mb-3">
-        <Form.Label>Nama</Form.Label>
+        <Form.Label className="fw-bold">Nama</Form.Label>
         <Form.Control
           value={formData.nama}
           placeholder="Masukkan Nama Anda"
@@ -550,19 +548,6 @@ const getAvailableJadwalForTerapis = () => {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>Harga</Form.Label>
-          <div className="d-flex align-items-center">
-            <span className="me-2">Rp.</span>
-            <Form.Control
-                type="text"
-                value={formData.harga}
-                readOnly 
-              />
-          </div>
-        </Form.Group>
-
-
-      <Form.Group className="mb-3">
         <Form.Label>Alamat</Form.Label>
         <Form.Control
           as="textarea"
@@ -583,6 +568,18 @@ const getAvailableJadwalForTerapis = () => {
           onChange={(e) => setFormData({ ...formData, keluhan: e.target.value })}
         />
       </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Harga</Form.Label>
+          <div className="d-flex align-items-center">
+            <span className="me-2">Rp.</span>
+            <Form.Control
+                type="text"
+                value={formData.harga}
+                readOnly 
+              />
+          </div>
+        </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label>Metode Pembayaran</Form.Label>
@@ -631,34 +628,34 @@ const getAvailableJadwalForTerapis = () => {
         </Form.Group>
       )}
     </Form>
-    {successMessage && (
-      <div className="alert alert-success mt-3" role="alert">
-        <div className="d-flex align-items-center">
-          <span className="me-2">✅</span>
-          <span>
-            {successMessage} 
-            {countdown > 0 && (
-              <strong className="text-primary"> {countdown} detik</strong>
-            )}
-            {countdown > 0 ? ' untuk konfirmasi kepada users.' : ''}
-          </span>
-        </div>
-        {countdown > 0 && (
-          <div className="mt-2">
-            <div className="progress" style={{ height: '8px' }}>
-              <div 
-                className="progress-bar bg-primary"
-                role="progressbar"
-                style={{ 
-                  width: `${((3 - countdown) / 3) * 100}%`,
-                  transition: 'width 1s ease-in-out'
-                }}
-              ></div>
-            </div>
-          </div>
+      {successMessage && (
+                <div className="alert alert-success fw-normal mt-3" role="alert">
+                  <div className="d-flex align-items-center">
+                    <span className="me-2">✅</span>
+                    <span>
+                      {successMessage} 
+                      {countdown > 0 && (
+                        <strong className="text-blue"> {countdown} detik</strong>
+                      )}
+                      {countdown > 0 ? ' untuk konfirmasi kepada terapis.' : ''}
+                    </span>
+                  </div>
+                  {countdown > 0 && (
+                    <div className="mt-2">
+                      <div className="progress" style={{ height: '8px' }}>
+                        <div 
+                          className="progress-bar bg-primary"
+                          role="progressbar"
+                          style={{ 
+                            width: `${((3 - countdown) / 3) * 100}%`,
+                            transition: 'width 1s ease-in-out'
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
         )}
-      </div>
-    )}
   </Modal.Body>
   <Modal.Footer>
     <Button variant="secondary" onClick={handleCloseModal}>Batal</Button>

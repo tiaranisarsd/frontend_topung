@@ -440,7 +440,7 @@ const getAvailableJadwalForTerapis = () => {
         <Modal.Header className='text-white bg-blue' closeButton>
           <Modal.Title className='fw-bold text-white mx-auto me-2'>Reservasi</Modal.Title>
         </Modal.Header>
-        <Modal.Body className='bg-blue2'>
+        <Modal.Body className='bg-blue2 fw-bold'>
           <Form className='my-1 p-1 text-blue'>
             <Form.Group className="mb-3">
               <Form.Label>Nama Terapis</Form.Label>
@@ -498,10 +498,10 @@ const getAvailableJadwalForTerapis = () => {
                       );
                     })
                   ) : (
-                    <div className="text-danger">Maaf, tidak ada jadwal yang tersedia untuk terapis ini. Silakan hubungi terapis untuk informasi lebih lanjut.</div>
+                    <div className="text-danger fw-normal">Maaf, tidak ada jadwal yang tersedia untuk terapis ini. Silakan hubungi terapis untuk informasi lebih lanjut.</div>
                   )
                 ) : (
-                  <div className="text-danger">Maaf, silakan pilih terapis terlebih dahulu untuk melihat jadwal yang tersedia.</div>
+                  <div className="text-danger fw-normal">Maaf, silakan pilih terapis terlebih dahulu untuk melihat jadwal yang tersedia.</div>
                 )}
               </div>
             </Form.Group>
@@ -623,13 +623,13 @@ const getAvailableJadwalForTerapis = () => {
 
           </Form>
               {successMessage && (
-                <div className="alert alert-success mt-3" role="alert">
+                <div className="alert alert-success fw-normal mt-3" role="alert">
                   <div className="d-flex align-items-center">
                     <span className="me-2">✅</span>
                     <span>
                       {successMessage} 
                       {countdown > 0 && (
-                        <strong className="text-primary"> {countdown} detik</strong>
+                        <strong className="text-blue"> {countdown} detik</strong>
                       )}
                       {countdown > 0 ? ' untuk konfirmasi kepada terapis.' : ''}
                     </span>
