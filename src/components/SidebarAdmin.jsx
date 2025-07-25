@@ -22,7 +22,7 @@ function Sidebar({ isMobile }) {
     dispatch(LogOut())
       .then(() => {
         setConfirmLogout(false);
-        setShowToast(true); // Tampilkan toast setelah logout berhasil
+        setShowToast(true);
         setTimeout(() => {
           navigate("/login", { state: { message: "Logout berhasil!" } });
         }, 1000);
@@ -37,7 +37,7 @@ function Sidebar({ isMobile }) {
   };
 
   const navItems = [
-    { path: "/users", icon: <FaUsers className="me-1" />, label: "Users" },
+    { path: "/users", icon: <FaUsers className="me-1" />, label: "Akun" },
     { path: "/reservasi", icon: <FaClipboardList className="me-1" />, label: "Reservasi" },
     { path: "/edukasi", icon: <FaBook className="me-1" />, label: "Edukasi" },
     { path: "/jadwalKegiatan", icon: <FaCalendarAlt size={14} className="me-1" />, label: "Kegiatan" },
@@ -50,14 +50,14 @@ function Sidebar({ isMobile }) {
 
   return (
     <>
-      <div className='ms-lg-2' style={{ width: '200px', height: '100vh' }}>
-        <Nav className="flex-column ms-lg-2 ms-4 justify-content-center align-items-center h-100 me-lg-4 list-group">
+      <div className='ms-lg-2 ' style={{ width: '200px', height: '100vh' }}>
+        <Nav className="flex-column ms-lg-2 ms-4 justify-content-center align-items-center h-100 me-lg-4 list-group" style={{position: 'fixed'}}>
           {navItems.map((item) => (
             <Nav.Item key={item.path} className={`w-100 my-1`}>
               <Nav.Link
                 as={Link}
                 to={item.path}
-                className={`list-group-item text-blue list-group-item-action text-white text-center rounded-pill ${location.pathname === item.path ? 'bgblue-opacity50 bgblue-hover50' : 'bg-blue bgblue-hover50'}`}
+                className={`list-group-item text-blue list-group-item-action text-white text-center rounded-pill ${location.pathname.startsWith(item.path) ? 'bgblue-opacity50 bgblue-hover50' : 'bg-blue bgblue-hover50'}`}
               >
                 {item.icon} {item.label}
               </Nav.Link>

@@ -135,7 +135,7 @@ const filteredUsers = users && users.role === "owner"
         <Card.Body className="text-blue fw-bold px-lg-5">
           <Form onSubmit={updateJadwal}>
             <Form.Group className="mb-3">
-              <Form.Label>Nama Terapis</Form.Label>
+              <Form.Label>Pilih Terapis</Form.Label>
               <Form.Select
                 value={userId}
                 onChange={(e) => setUsersId(e.target.value)}

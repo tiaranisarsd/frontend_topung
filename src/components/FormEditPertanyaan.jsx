@@ -93,7 +93,7 @@ const updatePertanyaan = async (e) => {
             </Toast.Body>
         </Toast>
     </ToastContainer>
-      <h2 className="mt-5 mb-3 text-blue fw-bold">Edit Pertanyaan</h2>
+      <h2 className="mt-5 mb-3 text-blue fw-bold">Edit Pertanyaan Umum</h2>
       <Card style={{maxWidth: '850px', border: 'none'}} className="bg-blue2 shadow d-flex mx-auto">
         <Card.Body>
           <Form className="text-blue" onSubmit={updatePertanyaan}>
@@ -110,6 +110,7 @@ const updatePertanyaan = async (e) => {
               <Form.Label className="fw-bold">Isi Pertanyaan</Form.Label>
               <Form.Control
                 as="textarea"
+                rows={5}
                 value={isi_pertanyaan}
                 onChange={(e) => setIsiPertanyaan(e.target.value)}
                 placeholder="Masukkan isi pertanyaan.."

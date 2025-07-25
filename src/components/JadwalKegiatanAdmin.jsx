@@ -96,7 +96,7 @@ const JadwalKegiatan = () => {
                   </Button>
                 </Modal.Footer>
               </Modal>
-      <h2 className="mt-5 text-blue fw-bold">Tambah Data Jadwal Kegiatan</h2>
+      <h2 className="mt-5 text-blue fw-bold">Daftar Data Jadwal Kegiatan</h2>
       <Link style={{ border: 'none' }} to="/jadwalKegiatan/add" className="btn btn-primary btn-hover text-white mt-2">
         <FaPlus /> Tambah Jadwal Kegiatan
       </Link>
@@ -109,7 +109,7 @@ const JadwalKegiatan = () => {
           </div>
         ) : error ? (
           <Alert variant="danger" className="text-center">{error}</Alert>
-        ) : JadwalKegiatan.length === 0 ? (
+        ) : jadwalKegiatan.length === 0 ? (
            <Alert variant="info" className="text-center">Tidak ada data jadwal kegiatan.</Alert>
         ) : (
           <Table striped bordered hover responsive className='text-center jadwalKegiatan-table'>

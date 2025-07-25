@@ -14,7 +14,7 @@ const TestimoniAdmin = () => {
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastVariant, setToastVariant] = useState('Selesai');
+  const [toastVariant, setToastVariant] = useState('success');
   const [testimoniToDelete, setTestimoniAdminToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showMediaModal, setShowMediaModal] = useState(false); 
@@ -49,7 +49,7 @@ const TestimoniAdmin = () => {
       await axios.delete(`http://localhost:5000/testimoni/${testimoniToDelete}`);
       setShowDeleteModal(false);
       setToastMessage('Testimoni berhasil dihapus!');
-      setToastVariant('Selesai');
+      setToastVariant('success');
       setShowToast(true);
       getTestimoniAdmin();
     } catch (err) {
@@ -64,7 +64,9 @@ const TestimoniAdmin = () => {
 
   const handleMediaClick = (mediaUrl) => {
     const isVideo = mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm') || mediaUrl.endsWith('.mov');
-    setSelectedMedia({ url: mediaUrl, isVideo });
+    // Tambahkan base URL server ke path file
+    const fullUrl = `http://localhost:5000${mediaUrl}`;
+    setSelectedMedia({ url: fullUrl, isVideo });
     setShowMediaModal(true);
   };
 

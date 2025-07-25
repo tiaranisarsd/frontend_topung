@@ -48,36 +48,43 @@ const FormAddEdukasi = () => {
 
   return (
     <Container className="p-3">
-                  <ToastContainer position="bottom-end" className="p-3" style={{ zIndex: 9999, position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
-                      <Toast
-                          onClose={() => setShowToast(false)}
-                          show={showToast}
-                          delay={4000}
-                          autohide
-                          bg={msg.includes("berhasil") ? "success" : "danger"}
-                      >
-                          <Toast.Header closeButton={false}>
-                              <strong className="me-auto">Notifikasi</strong>
-                          </Toast.Header>
-                          <Toast.Body className="text-white">
-                              {msg}
-                          </Toast.Body>
-                      </Toast>
-                  </ToastContainer>
-      <h2 className="mt-5 mb-3 text-blue fw-bold">Tambah Edukasi</h2>
-      <Card style={{maxWidth: '850px', border: 'none'}} className="bg-blue2 shadow d-flex mx-auto">
-        <Card.Body>
-          <Form className="text-blue" onSubmit={saveUser}>
-            <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Konten</Form.Label>
-              <p className="fs-12 fst-italic">Salin link YouTube atau TikTok</p>
-              <Form.Control
-                type="text"
-                value={konten}
-                onChange={(e) => setKonten(e.target.value)}
-                placeholder="Masukkan link konten.."
-              />
-            </Form.Group>
+        <ToastContainer position="bottom-end" className="p-3" 
+        style={{ 
+          zIndex: 9999, 
+          position: 'fixed', 
+          bottom: '20px', 
+          left: '50%', 
+          transform: 'translateX(-50%)' 
+          }}>
+            <Toast
+              onClose={() => setShowToast(false)}
+              show={showToast}
+              delay={4000}
+              autohide
+              bg={msg.includes("berhasil") ? "success" : "danger"}
+            >
+              <Toast.Header closeButton={false}>
+                  <strong className="me-auto">Notifikasi</strong>
+              </Toast.Header>
+              <Toast.Body className="text-white">
+                {msg}
+              </Toast.Body>
+            </Toast>
+        </ToastContainer>
+            <h2 className="mt-5 mb-3 text-blue fw-bold">Tambah Edukasi</h2>
+            <Card style={{maxWidth: '850px', border: 'none'}} className="bg-blue2 shadow d-flex mx-auto">
+              <Card.Body>
+                <Form className="text-blue" onSubmit={saveUser}>
+                  <Form.Group className="mb-3">
+                    <Form.Label className="fw-bold">Konten</Form.Label>
+                    <p className="fs-12 fst-italic">Salin link YouTube atau TikTok</p>
+                    <Form.Control
+                      type="text"
+                      value={konten}
+                      onChange={(e) => setKonten(e.target.value)}
+                      placeholder="Masukkan link konten.."
+                    />
+                  </Form.Group>
                         <div className="d-flex justify-content-end">
                         <Button
                             type="button"

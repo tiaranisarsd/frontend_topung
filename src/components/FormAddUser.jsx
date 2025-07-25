@@ -147,7 +147,7 @@ const FormAddUser = () => {
         </Toast>
       </ToastContainer>
 
-      <h2 className="mb-4 text-blue fw-bold">Tambah Data User</h2>
+      <h2 className="mb-4 text-blue fw-bold">Tambah Akun</h2>
       <div className="card border-none bg-blue2 m-lg-4 shadow">
         <div className="card-body text-blue fw-bold px-lg-5">
           <form onSubmit={saveusers}>

@@ -90,6 +90,7 @@ const FormAddJadwalKegiatan = () => {
                 <option value="">-- Pilih --</option>
                 <option value="Baksos">Baksos</option>
                 <option value="Pelatihan">Pelatihan</option>
+                <option value="Lainnya">Lainnya</option>
               </Form.Select>
             </Form.Group>
 

@@ -106,7 +106,7 @@ const FormAddJadwalTerapis = () => {
         <div className="card-body text-blue fw-bold px-lg-5">
           <form onSubmit={saveJadwal}>
             <div className="mb-3">
-              <label className="form-label">Terapis</label>
+              <label className="form-label">Pilih Terapis</label>
               <select
                 className="form-select"
                 value={usersId}

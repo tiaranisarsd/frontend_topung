@@ -88,7 +88,7 @@ const FormAddTestimoni = () => {
         <Card.Body>
           <Form className="text-blue" onSubmit={savetestimoni}>
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Upload Testimoni</Form.Label>
+              <Form.Label className="fw-bold">Unggah Testimoni</Form.Label>
               <Form.Control
                 type="file"
                 accept="image/jpeg,image/png,image/webp,video/mp4,video/mpeg"

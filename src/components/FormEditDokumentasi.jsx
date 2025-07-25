@@ -107,7 +107,7 @@ const FormEditDokumentasi = () => {
           </Toast.Body>
         </Toast>
       </ToastContainer>
-      <h2 className="mt-5 mb-3 text-blue fw-bold">Ubah Dokumentasi</h2>
+      <h2 className="mt-5 mb-3 text-blue fw-bold">Edit Dokumentasi</h2>
       <Card style={{ maxWidth: '850px', border: 'none' }} className="bg-blue2 shadow d-flex mx-auto">
         <Card.Body>
           <Form className="text-blue" onSubmit={updateDokumentasi}>
@@ -121,23 +121,23 @@ const FormEditDokumentasi = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Upload Dokumentasi</Form.Label>
+              <Form.Label className="fw-bold">Unggah Dokumentasi</Form.Label>
               {formData.gambar && !gambar && (
                 <div className="mb-2">
-                  {formData.gambar.endsWith('.mp4') ? (
+                  {formData.gambar.endsWith('.mp4') || formData.gambar.endsWith('.webm') || formData.gambar.endsWith('.mov') ? (
                     <video 
                       controls 
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     >
-                      <source src={formData.gambar} type="video/mp4" />
+                      <source src={`http://localhost:5000${formData.gambar}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img 
-                      src={formData.gambar} 
+                      src={`http://localhost:5000${formData.gambar}`} 
                       alt="Dokumentasi Saat Ini" 
-                      className="shadow-sm"
+                      className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     />
                   )}
@@ -175,20 +175,20 @@ const FormEditDokumentasi = () => {
               />
             </Form.Group>
 
-             <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end">
               <Button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => navigate("/dokumentasi")}
               >
                 <FaTimesCircle className="me-1" /> Batal
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="btn btn-success ms-2"
-                  >
-                    {isLoading ? (
+              </Button>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="btn btn-success ms-2"
+              >
+                {isLoading ? (
                   <>
                     <Spinner 
                       animation="border" 
@@ -196,13 +196,13 @@ const FormEditDokumentasi = () => {
                       className="me-1 align-middle" 
                       style={{ width: '16px', height: '16px' }} 
                     />
-                      <span>Loading...</span>
-                    </>
-                    ) : (
-                    <>
-                   <FaSave className="me-1" />
-                   <span>Perbarui</span>
-                   </>
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaSave className="me-1" />
+                    <span>Perbarui</span>
+                  </>
                 )}
               </Button>
             </div>

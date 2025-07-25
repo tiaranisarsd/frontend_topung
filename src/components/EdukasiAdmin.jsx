@@ -109,7 +109,7 @@ const Edukasi = () => {
           </div>
         ) : error ? (
           <Alert variant="danger" className="text-center">{error}</Alert>
-        ) : Edukasi.length === 0 ? (
+        ) : edukasi.length === 0 ? (
            <Alert variant="info" className="text-center">Tidak ada data edukasi.</Alert>
         ) : (
           <Table striped bordered hover responsive className='text-center edukasi-table'>

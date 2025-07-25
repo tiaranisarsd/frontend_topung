@@ -11,7 +11,7 @@ const AdminLayout = ({children}) => {
             <HeaderAdmin />
             <Container fluid className="mt-5">
                 <Row>
-                <Col lg={2} className="d-none d-lg-block bg-light2 shadow">
+                <Col lg={2} className="d-none d-lg-block bg-light2 shadow-sm">
                     <Sidebar isMobile={false} />
                 </Col>
                 <Col lg={10}>

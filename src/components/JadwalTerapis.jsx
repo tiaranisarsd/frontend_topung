@@ -118,13 +118,12 @@ const JadwalTerapis = () => {
 
     return (
         <Container className="p-3">
-            <h1 className="mt-lg-5 mt-3 text-blue fw-bold text-blue">Jadwal Terapis</h1>
-            <h2 className="mb-3 text-blue text-blue">Daftar Jadwal</h2>
+            <h2 className="mt-5 text-blue fw-bold">Daftar Jadwal Terapis</h2>
 
             {canEdit && (
                 <Button
                     onClick={handleAddJadwalClick}
-                    className="btn btn-primary btn-hover text-white mb-4"
+                    className="btn btn-primary btn-hover text-white mb-4 mt-2"
                     style={{ border: 'none' }}
                 >
                     <FaPlus /> Tambah Jadwal

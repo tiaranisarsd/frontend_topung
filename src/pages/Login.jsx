@@ -24,7 +24,14 @@ const Login = () => {
     <React.Fragment>
       <LoginAdmin />
 
-      <ToastContainer position="bottom-end" className="p-3" style={{ zIndex: 9999, position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
+      <ToastContainer position="bottom-end" className="p-3" 
+      style={{ 
+        zIndex: 9999, 
+        position: 'fixed', 
+        bottom: '20px', 
+        left: '50%', 
+        transform: 'translateX(-50%)' 
+        }}>
         <Toast 
           onClose={() => setShowToast(false)} 
           show={showToast} 

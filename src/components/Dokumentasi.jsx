@@ -16,6 +16,7 @@ const Dokumentasi = () => {
       try {
         const response = await fetch('http://localhost:5000/dokumentasi');
         const data = await response.json();
+        console.log("Data dokumentasi dari API:", data);
         setDokumentasi(data);
       } catch (error) {
         console.error('Gagal memuat dokumentasi:', error);
@@ -54,7 +55,8 @@ const Dokumentasi = () => {
   }, []);
 
   const openViewer = useCallback((url, isVid = false) => {
-    setMediaUrl(url);
+    const fullUrl = `http://localhost:5000${url}`;
+    setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
     document.body.style.overflow = 'hidden';
@@ -66,21 +68,6 @@ const Dokumentasi = () => {
     setIsVideo(false);
     document.body.style.overflow = 'unset';
   }, []);
-
-  const getVideoThumbnailUrl = (videoUrl) => {
-    if (!videoUrl) return 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
-    
-    // Jika URL dari Cloudinary, tambahkan parameter transformasi untuk thumbnail
-    if (videoUrl.includes('cloudinary.com')) {
-      const urlParts = videoUrl.split('/upload/');
-      if (urlParts.length === 2) {
-        const thumbnailUrl = `${urlParts[0]}/upload/so_0,w_400,h_225,c_fill/${urlParts[1].split('.')[0]}.jpg`;
-        return thumbnailUrl;
-      }
-    }
-    // Fallback ke placeholder statis jika tidak bisa menghasilkan thumbnail
-    return 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
-  };
 
   return (
     <div className="dokumentasi-page bg-white my-4 py-5" id="dokumentasi">
@@ -119,9 +106,9 @@ const Dokumentasi = () => {
                           <div className="position-relative">
                             {item.gambar && (item.gambar.endsWith('.mp4') || item.gambar.endsWith('.webm') || item.gambar.endsWith('.mov')) ? (
                               <>
-                                <img
-                                  src={getVideoThumbnailUrl(item.gambar)}
-                                  alt={`Thumbnail untuk ${item.judul}`}
+                                <video
+                                  preload="metadata"
+                                  muted
                                   className="img-fluid rounded mb-3"
                                   style={{
                                     maxHeight: '200px',
@@ -129,17 +116,35 @@ const Dokumentasi = () => {
                                     width: '100%',
                                   }}
                                   onError={(e) => {
-                                    console.error(`Gagal memuat thumbnail untuk ${item.gambar}`);
-                                    e.target.src = 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
+                                    console.error(`Gagal memuat video thumbnail untuk ${item.gambar}`);
+                                    e.target.style.display = 'none'; 
+                                    e.target.nextSibling.style.display = 'block'; 
+                                  }}
+                                >
+                                  <source src={`http://localhost:5000${item.gambar}`} type="video/mp4" />
+                                  Browser Anda tidak mendukung tag video.
+                                </video>
+                                <img
+                                  src="https://placehold.co/200x200?text=Video+Thumbnail"
+                                  alt={`Placeholder untuk ${item.judul}`}
+                                  className="img-fluid rounded mb-3"
+                                  style={{
+                                    maxHeight: '200px',
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                    display: 'none', // Hidden by default, shown only if video fails
+                                  }}
+                                  onError={(e) => {
+                                    console.error(`Gagal memuat placeholder untuk ${item.judul}`);
                                   }}
                                 />
-                                <div className="video-icon-overlay">
+                                <div className="video-icon-overlay" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                                   <FaPlay className="text-white" size={24} />
                                 </div>
                               </>
                             ) : (
                               <img
-                                src={item.gambar || 'https://via.placeholder.com/200x200?text=No+Image'}
+                                src={`http://localhost:5000${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul}
                                 className="img-fluid rounded mb-3"
                                 style={{
@@ -149,7 +154,7 @@ const Dokumentasi = () => {
                                 }}
                                 onError={(e) => {
                                   console.error(`Gagal memuat gambar untuk ${item.judul}`);
-                                  e.target.src = 'https://via.placeholder.com/200x200?text=No+Image';
+                                  e.target.src = 'https://placehold.co/200x200?text=No+Image';
                                 }}
                               />
                             )}

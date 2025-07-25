@@ -562,12 +562,14 @@ const getAvailableJadwalForTerapis = () => {
 
                 <Form.Group className="mb-3">
                   <Form.Label>Harga</Form.Label>
+                  <p className="fs-12 mt-0 fw-normal fst-italic">(Harga ini merupakan <b>Deposit Reservasi (khusus pembayaran Transfer).</b> Silahkan konfirmasi ke terapis yang Anda pilih untuk detail pembayaran.)</p>
                   <div className="d-flex align-items-center">
                     <span className="me-2">Rp.</span>
                   <Form.Control
                     type="text"
-                    value={formData.harga}
+                    value={formData.harga !== '' ? formData.harga : 'Terapis belum menetapkan harga, silahkan lakukan pembayaran tunai.'}
                     readOnly 
+                    className={formData.harga === '' ? 'text-danger fs-14' : ''}
                   />
                   </div>
                 </Form.Group>
@@ -590,8 +592,9 @@ const getAvailableJadwalForTerapis = () => {
                     <Form.Label>Bank</Form.Label>
                       <Form.Control
                         type="text"
-                        value={formData.bank}
+                        value={formData.bank !== '' ? formData.bank : 'Terapis belum menetapkan bank, silahkan lakukan pembayaran tunai.'}
                         readOnly 
+                        className={formData.bank === '' ? 'text-danger fs-14' : ''}
                       />
                   </Form.Group>
                 )}
@@ -601,8 +604,9 @@ const getAvailableJadwalForTerapis = () => {
                   <Form.Label>No Rekening</Form.Label>
                     <Form.Control
                       type="text"
-                      value={formData.no_rekening}
+                      value={formData.no_rekening !== '' ? formData.no_rekening : 'Terapis belum menetapkan nomor rekening, silahkan lakukan pembayaran tunai.'}
                       readOnly 
+                      className={formData.no_rekening === '' ? 'text-danger fs-14' : ''}
                     />
                 </Form.Group>
                 )}

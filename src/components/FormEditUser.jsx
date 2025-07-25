@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import axios from "axios";
@@ -6,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Toast, ToastContainer, Spinner } from 'react-bootstrap';
 import { FaSave, FaTimesCircle } from 'react-icons/fa';
 
-const FormEditUser = () => {
+const FormEditUser   = () => {
   const [nama, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +31,6 @@ const FormEditUser = () => {
     const getusersById = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/users/${id}`);
-        // Update individual states with data from API
         setName(response.data.nama || "");
         setEmail(response.data.email || "");
         setRole(response.data.role || "");
@@ -44,53 +42,25 @@ const FormEditUser = () => {
         setExistingGambar(response.data.gambar || "");
         setExistingCvPdf(response.data.cv_pdf || "");
 
-        setFormData({
-          nama: response.data.nama || "",
-          email: response.data.email || "",
-          role: response.data.role || "",
-          gambar: response.data.gambar || "",
-          cv_pdf: response.data.cv_pdf || "",
-          no_telp: response.data.no_telp || "",
-          harga: response.data.harga || "",
-          bank: response.data.bank || "",
-          no_rekening: response.data.no_rekening || "",
-          alamat: response.data.alamat || "",
-        });
+        // Log the existing image and CV URLs
+        console.log("Existing Gambar URL:", `http://localhost:5000/uploads/users/${response.data.gambar}`);
+        console.log("Existing CV PDF URL:", `http://localhost:5000/uploads/users/${response.data.cv_pdf}`);
       } catch (error) {
-        if (error.response) {
-          setMsg(error.response.data.msg || "Gagal memuat data pengguna.");
-          setShowToast(true);
-          setTimeout(() => {
-            navigate("/users");
-          }, 3000);
-        } else {
-          setMsg("Terjadi kesalahan saat memuat data.");
-          setShowToast(true);
-        }
+        setMsg(error.response?.data.msg || "Gagal memuat data pengguna.");
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/users");
+        }, 3000);
       }
     };
     getusersById();
   }, [id, navigate]);
-
-  const [formData, setFormData] = useState({
-    nama: '',
-    email: '',
-    role: '',
-    gambar: '',
-    cv_pdf: '',
-    no_telp: '',
-    harga: '',
-    bank: '',
-    no_rekening: '',
-    alamat: '',
-  });
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     if (e.target.name === "gambar") {
-      console.log(`Selected file for gambar: ${file.name}, Type: ${file.type}`);
       if (!file.type.startsWith('image/')) {
         setMsg("File untuk gambar harus berupa gambar (jpg, png, jpeg, webp).");
         setShowToast(true);
@@ -98,7 +68,6 @@ const FormEditUser = () => {
       }
       setGambar(file);
     } else if (e.target.name === "cv_pdf") {
-      console.log(`Selected file for cv_pdf: ${file.name}, Type: ${file.type}`);
       if (file.type !== 'application/pdf') {
         setMsg("File untuk CV harus berupa PDF.");
         setShowToast(true);
@@ -113,18 +82,6 @@ const FormEditUser = () => {
 
     if (!nama || !email || !role || !bank || !harga || !no_telp || !no_rekening) {
       setMsg("Semua bidang wajib harus diisi.");
-      setShowToast(true);
-      return;
-    }
-
-    if (gambar && !gambar.type.startsWith('image/')) {
-      setMsg("File untuk gambar harus berupa gambar (jpg, png, jpeg, webp).");
-      setShowToast(true);
-      return;
-    }
-
-    if (cv_pdf && cv_pdf.type !== 'application/pdf') {
-      setMsg("File untuk CV harus berupa PDF.");
       setShowToast(true);
       return;
     }
@@ -153,14 +110,12 @@ const FormEditUser = () => {
       formDataToSend.append("alamat", alamat);
       
       if (gambar) {
-        console.log(`ApMenunggu new gambar to FormData: ${gambar.name}, Type: ${gambar.type}`);
         formDataToSend.append("gambar", gambar);
       } else if (existingGambar) {
         formDataToSend.append("existingGambar", existingGambar);
       }
 
       if (cv_pdf) {
-        console.log(`ApMenunggu new cv_pdf to FormData: ${cv_pdf.name}, Type: ${cv_pdf.type}`);
         formDataToSend.append("cv_pdf", cv_pdf);
       } else if (existingCvPdf) {
         formDataToSend.append("existingCvPdf", existingCvPdf);
@@ -172,68 +127,18 @@ const FormEditUser = () => {
         },
       });
 
-      setMsg("User berhasil diperbarui!");
+      setMsg("User   berhasil diperbarui!");
       setShowToast(true);
       setTimeout(() => {
         navigate("/users");
       }, 2000);
     } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg || "Terjadi kesalahan saat memperbarui user.");
-        setShowToast(true);
-      } else {
-        setMsg("Terjadi kesalahan saat memperbarui user: " + error.message);
-        setShowToast(true);
-      }
+      setMsg(error.response?.data.msg || "Terjadi kesalahan saat memperbarui user.");
+      setShowToast(true);
     } finally {
       setIsLoading(false);
     }
   };
-  
-const downloadCv = async () => {
-  try {
-    const response = await axios.get(formData.cv_pdf, {
-      responseType: 'blob', // Penting untuk mengunduh file sebagai blob
-    });
-    const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', 'cv_user.pdf'); // Nama file dengan ekstensi .pdf
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url); // Bersihkan URL sementara
-  } catch (error) {
-    console.error('Error downloading CV:', error);
-    setMsg('Gagal mengunduh CV. Silakan coba lagi.');
-    setShowToast(true);
-  }
-};
-
-<div className="mb-3">
-  <label className="form-label">Upload CV Baru (PDF)</label>
-  {formData.cv_pdf && !cv_pdf && (
-    <div className="mb-2">
-      <p>
-        CV Saat Ini: <button onClick={downloadCv} className="btn btn-link p-0">Lihat CV</button>
-      </p>
-    </div>
-  )}
-  {cv_pdf && (
-    <div className="mt-2">
-      <p>File baru terpilih: {cv_pdf.name}</p>
-      <p className="text-danger">CV lama akan diganti dengan yang baru.</p>
-    </div>
-  )}
-  <input
-    type="file"
-    className="form-control"
-    accept="application/pdf"
-    name="cv_pdf"
-    onChange={handleFileChange}
-  />
-</div>
-
 
   return (
     <div className="container mt-5">
@@ -262,32 +167,32 @@ const downloadCv = async () => {
         </Toast>
       </ToastContainer>
 
-      <h2 className="mb-4 text-blue fw-bold">Edit Users</h2>
+      <h2 className="mb-4 text-blue fw-bold">Edit Akun</h2>
       <div className="card border-none bg-blue2 m-lg-4 shadow">
         <div className="card-body text-blue fw-bold px-lg-5">
           <form onSubmit={updateusers}>
             <div className="mb-3">
               <label className="form-label">Upload Gambar Baru (jpg, png, jpeg, webp)</label>
-              {formData.gambar && !gambar && (
+              {existingGambar && !gambar && (
                 <div className="mb-2">
                   <img 
-                    src={formData.gambar} 
+                    src={`http://localhost:5000/uploads/users/${existingGambar}`} 
                     alt="Gambar Saat Ini" 
-                    className="shadow-sm"
-                    style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
+                    className="shadow-sm rounded"
+                    style={{ maxWidth: '200px', maxHeight: '150px', objectFit: 'contain' }} 
                   />
                 </div>
               )}
               {gambar && (
-                <div className="mt-2">
+                <div className="">
                   <p>File baru terpilih: {gambar.name}</p>
                   <p className="text-danger">Gambar lama akan diganti dengan yang baru.</p>
                   <div className="mb-2">
                     <img 
                       src={URL.createObjectURL(gambar)} 
                       alt="Preview Gambar Baru" 
-                      className="shadow-sm"
-                      style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
+                      className="shadow-sm rounded"
+                      style={{ maxWidth: '200px', maxHeight: '150px', objectFit: 'contain' }} 
                     />
                   </div>
                 </div>
@@ -303,10 +208,10 @@ const downloadCv = async () => {
 
             <div className="mb-3">
               <label className="form-label">Upload CV Baru (PDF)</label>
-              {formData.cv_pdf && !cv_pdf && (
+              {existingCvPdf && !cv_pdf && (
                 <div className="mb-2">
                   <p>
-                    CV Saat Ini: <a href={formData.cv_pdf} target="_blank" rel="noopener noreferrer" download="cv_user.pdf">Lihat CV</a>
+                    CV Saat Ini: <a href={`http://localhost:5000/uploads/users/${existingCvPdf}`} target="_blank" rel="noopener noreferrer">Lihat CV</a>
                   </p>
                 </div>
               )}
@@ -324,7 +229,6 @@ const downloadCv = async () => {
                 onChange={handleFileChange}
               />
             </div>
-
 
             <div className="mb-3">
               <label className="form-label">Nama</label>
@@ -349,7 +253,7 @@ const downloadCv = async () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Password Baru (kosongkan jika tidak ingin mengubah)</label>
+              <label className="form-label">Password Baru<span className="text-muted fw-normal" style={{ marginLeft: '5px' }}>(kosongkan jika tidak ingin mengubah)</span></label>
               <input
                 type="password"
                 className="form-control"
@@ -360,13 +264,13 @@ const downloadCv = async () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Confirm Password Baru</label>
+              <label className="form-label">Konfirmasi Password Baru</label>
               <input
                 type="password"
                 className="form-control"
                 value={confPassword}
                 onChange={(e) => setConfPassword(e.target.value)}
-                placeholder="Masukkan confirm password baru..."
+                placeholder="Masukkan konfirmasi password baru..."
               />
             </div>
 
@@ -388,28 +292,28 @@ const downloadCv = async () => {
             <div className="mb-3">
               <label className="form-label">No. Telepon</label>
               <div className="d-flex align-items-center">
-              <span className="me-2">+62</span>
-              <input
-                type="text"
-                className="form-control"
-                value={no_telp}
-                onChange={(e) => setNoTelp(e.target.value)}
-                placeholder="Masukkan nomor telepon"
-              />
+                <span className="me-2">+62</span>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={no_telp}
+                  onChange={(e) => setNoTelp(e.target.value)}
+                  placeholder="Masukkan nomor telepon"
+                />
               </div>
             </div>
 
             <div className="mb-3">
-            <label className="form-label">Harga</label>
-            <div className="d-flex align-items-center">
-              <span className="me-2">Rp. </span>
-              <input
-                type="text"
-                className="form-control"
-                value={harga}
-                onChange={(e) => setHarga(e.target.value)}
-                placeholder="Masukkan harga (contoh: 100000)"
-              />
+              <label className="form-label">Harga</label>
+              <div className="d-flex align-items-center">
+                <span className="me-2">Rp. </span>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={harga}
+                  onChange={(e) => setHarga(e.target.value)}
+                  placeholder="Masukkan harga (contoh: 100000)"
+                />
               </div>
             </div>
 
@@ -450,21 +354,20 @@ const downloadCv = async () => {
               />
             </div>
 
-
-             <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end">
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => navigate("/users")}
               >
                 <FaTimesCircle className="me-1" /> Batal
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="btn btn-success ms-2"
-                  >
-                    {isLoading ? (
+              </button>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="btn btn-success ms-2"
+              >
+                {isLoading ? (
                   <>
                     <Spinner 
                       animation="border" 
@@ -472,13 +375,13 @@ const downloadCv = async () => {
                       className="me-1 align-middle" 
                       style={{ width: '16px', height: '16px' }} 
                     />
-                      <span>Loading...</span>
-                    </>
-                    ) : (
-                    <>
-                   <FaSave className="me-1" />
-                   <span>Perbarui</span>
-                   </>
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaSave className="me-1" />
+                    <span>Perbarui</span>
+                  </>
                 )}
               </button>
             </div>
@@ -489,4 +392,4 @@ const downloadCv = async () => {
   );
 };
 
-export default FormEditUser;
+export default FormEditUser ;

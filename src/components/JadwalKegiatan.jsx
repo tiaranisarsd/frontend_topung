@@ -9,7 +9,7 @@ const JadwalKegiatan = () => {
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
 
-  const jenisPelatihanOptions = ['Baksos', 'Pelatihan'];
+  const jenisPelatihanOptions = ['Baksos', 'Pelatihan', 'Lainnya'];
 
   const getItemsPerSlide = () => {
     if (window.innerWidth < 768) { 

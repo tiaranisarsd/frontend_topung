@@ -96,7 +96,7 @@ const Pertanyaan = () => {
                   </Button>
                 </Modal.Footer>
               </Modal>
-      <h2 className="mt-5 text-blue fw-bold">Daftar Data Pertanyaan</h2>
+      <h2 className="mt-5 text-blue fw-bold">Daftar Data Pertanyaan Umum</h2>
       <Link style={{ border: 'none' }} to="/pertanyaan/add" className="btn btn-primary btn-hover text-white mt-2">
         <FaPlus /> Tambah Pertanyaan
       </Link>
@@ -109,7 +109,7 @@ const Pertanyaan = () => {
           </div>
         ) : error ? (
           <Alert variant="danger" className="text-center">{error}</Alert>
-        ) : Pertanyaan.length === 0 ? (
+        ) : pertanyaan.length === 0 ? (
           <Alert variant="info" className="text-center">Tidak ada data pertanyaan.</Alert>
         ) : (
           <Table striped bordered hover responsive className='text-center pertanyaan-table'>

@@ -101,12 +101,12 @@ const updateTestimoni = async (e) => {
           </Toast.Body>
         </Toast>
       </ToastContainer>
-      <h2 className="mt-5 mb-3 text-blue fw-bold">Ubah Testimoni</h2>
+      <h2 className="mt-5 mb-3 text-blue fw-bold">Edit Testimoni</h2>
       <Card style={{ maxWidth: '850px', border: 'none' }} className="bg-blue2 shadow d-flex mx-auto">
         <Card.Body>
           <Form className="text-blue" onSubmit={updateTestimoni}>
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Upload Testimoni</Form.Label>
+              <Form.Label className="fw-bold">Unggah Testimoni</Form.Label>
               {formData.media && !media && (
                 <div className="mb-2">
                   {formData.media.endsWith('.mp4') ? (
@@ -115,14 +115,14 @@ const updateTestimoni = async (e) => {
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     >
-                      <source src={formData.media} type="video/mp4" />
+                      <source src={`http://localhost:5000${formData.media}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img 
-                      src={formData.media} 
+                      src={`http://localhost:5000${formData.media}`} 
                       alt="Testimoni Saat Ini" 
-                      className="shadow-sm"
+                      className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     />
                   )}

@@ -393,9 +393,10 @@ const getAvailableJadwalForTerapis = () => {
                 <Card.Body className="d-flex flex-column flex-md-row align-items-start gap-4 p-4">
                   <div className="text-center">
                     <img
-                      src={item.gambar || 'https://via.placeholder.com/100'}
+                      src={item.gambar ? `http://localhost:5000/uploads/users/${item.gambar}` : ''}
                       alt={item.nama}
                       className="rounded-circle"
+                      style={{ objectFit: 'cover' }} 
                       width="100"
                       height="100"
                     />
@@ -413,7 +414,7 @@ const getAvailableJadwalForTerapis = () => {
                         <Button 
                           variant="outline-primary" 
                           className="rounded-pill px-3 px-lg-4 py-1 me-1 fw-bold fs-16" 
-                          onClick={() => handleViewCV(item.cv_pdf)}
+                          onClick={() => handleViewCV(item.cv_pdf ? `http://localhost:5000/uploads/users/${item.cv_pdf}` : '')}
                         >
                           <MdPictureAsPdf className="me-1" /> Lihat CV
                         </Button>
@@ -571,12 +572,14 @@ const getAvailableJadwalForTerapis = () => {
 
       <Form.Group className="mb-3">
         <Form.Label>Harga</Form.Label>
+          <p className="fs-12 mt-0 fw-normal fst-italic">(Harga ini merupakan <b>Deposit Reservasi (khusus pembayaran Transfer).</b> Silahkan konfirmasi ke terapis yang Anda pilih untuk detail pembayaran.)</p>
           <div className="d-flex align-items-center">
             <span className="me-2">Rp.</span>
             <Form.Control
                 type="text"
-                value={formData.harga}
-                readOnly 
+                value={formData.harga !== '' ? formData.harga : 'Terapis belum menetapkan harga, silahkan lakukan pembayaran tunai.'}
+                readOnly
+                className={formData.harga === '' ? 'text-danger fs-14' : ''}
               />
           </div>
         </Form.Group>
@@ -599,8 +602,9 @@ const getAvailableJadwalForTerapis = () => {
           <Form.Label>Bank</Form.Label>
             <Form.Control
               type="text"
-              value={formData.bank}
+              value={formData.bank !== '' ? formData.bank : 'Terapis belum menetapkan bank, silahkan lakukan pembayaran tunai.'}
               readOnly 
+              className={formData.bank === '' ? 'text-danger fs-14' : ''}
             />
         </Form.Group>
       )}
@@ -610,8 +614,9 @@ const getAvailableJadwalForTerapis = () => {
         <Form.Label>No Rekening</Form.Label>
           <Form.Control
             type="text"
-            value={formData.no_rekening}
+            value={formData.no_rekening !== '' ? formData.no_rekening : 'Terapis belum menetapkan nomor rekening, silahkan lakukan pembayaran tunai.'}
             readOnly 
+            className={formData.no_rekening === '' ? 'text-danger fs-14' : ''}
           />
       </Form.Group>
       )}

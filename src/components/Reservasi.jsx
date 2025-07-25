@@ -176,7 +176,8 @@
   };
 
     const handleImageClick = (imageUrl) => {
-      setImageUrl(imageUrl);
+      const fullImageUrl = `http://localhost:5000${imageUrl}`;
+      setImageUrl(fullImageUrl);
       setShowImage(true);
     };
 
@@ -406,7 +407,7 @@
 
                         <Dropdown.Menu>
                           <Dropdown.Item onClick={() => handleStatusChange(item.id, item.status, index, item.jadwalId)}>
-                            {item.status === "Menunggu" ? "Proses" : item.status === "Disetujui" ? "Selesai" : "Pending"}
+                            {item.status === "Menunggu" ? "Disetujui" : item.status === "Disetujui" ? "Selesai" : "Pending"}
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>

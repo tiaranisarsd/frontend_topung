@@ -111,7 +111,7 @@ const Tinjauan = () => {
                 <th>Nama</th>
                 <th>Layanan</th>
                 <th>Rating</th>
-                <th>Tinjauan</th>
+                <th>Isi Ulasan</th>
                 <th>Tindakan</th>
               </tr>
             </thead>

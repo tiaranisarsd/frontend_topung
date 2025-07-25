@@ -100,10 +100,10 @@ const Users = () => {
         </Modal.Footer>
       </Modal>
 
-      <h2 className="mt-5 text-blue fw-bold">Daftar User</h2>
+      <h2 className="mt-5 text-blue fw-bold">Daftar Akun</h2>
       {users && users.role === "owner" && ( 
         <Link style={{ border: 'none' }} to="/users/add" className="btn btn-primary btn-hover text-white mt-2">
-          <FaPlus /> Tambah User
+          <FaPlus /> Tambah Akun
         </Link>
       )}
       <div className="mt-3">

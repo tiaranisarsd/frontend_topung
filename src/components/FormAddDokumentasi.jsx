@@ -101,7 +101,7 @@ const FormAddDokumentasi = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Upload Dokumentasi</Form.Label>
+              <Form.Label className="fw-bold">Unggah Dokumentasi</Form.Label>
               <Form.Control
                 type="file"
                 accept="image/jpeg,image/png,image/webp,video/mp4,video/mpeg"

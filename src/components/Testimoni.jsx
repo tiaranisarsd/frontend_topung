@@ -11,6 +11,28 @@ const Testimoni = () => {
   const [mediaUrl, setMediaUrl] = useState('');
   const [isVideo, setIsVideo] = useState(false);
 
+  // === START: Penyesuaian agar seperti Dokumentasi ===
+  // Fungsi untuk menentukan jumlah item per slide berdasarkan lebar layar
+  const getItemsPerSlide = useCallback(() => {
+    if (window.innerWidth < 768) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }, []); // useCallback untuk memoize fungsi
+
+  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
+
+  // useEffect untuk memantau perubahan ukuran layar
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerSlide(getItemsPerSlide());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getItemsPerSlide]);
+  // === END: Penyesuaian agar seperti Dokumentasi ===
+
   useEffect(() => {
     const fetchTestimoni = async () => {
       try {
@@ -36,7 +58,8 @@ const Testimoni = () => {
   };
 
   const openViewer = useCallback((url, isVid = false) => {
-    setMediaUrl(url);
+    const fullUrl = `http://localhost:5000${url}`;
+    setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
     document.body.style.overflow = 'hidden';
@@ -48,22 +71,6 @@ const Testimoni = () => {
     setIsVideo(false);
     document.body.style.overflow = 'unset';
   }, []);
-
-  // Fungsi untuk mendapatkan URL thumbnail video dari Cloudinary
-  const getVideoThumbnailUrl = (videoUrl) => {
-    if (!videoUrl) return 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
-    
-    // Jika URL dari Cloudinary, tambahkan parameter transformasi untuk thumbnail
-    if (videoUrl.includes('cloudinary.com')) {
-      const urlParts = videoUrl.split('/upload/');
-      if (urlParts.length === 2) {
-        const thumbnailUrl = `${urlParts[0]}/upload/so_0,w_400,h_225,c_fill/${urlParts[1].split('.')[0]}.jpg`;
-        return thumbnailUrl;
-      }
-    }
-    // Fallback ke placeholder statis jika tidak bisa menghasilkan thumbnail
-    return 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
-  };
 
   return (
     <div className="testimoni-page bg-white my-4 py-5" id="testimoni">
@@ -81,8 +88,11 @@ const Testimoni = () => {
             prevIcon={<FaChevronLeft className='text-blue fs-4' />}
             interval={4000}
           >
-            {Array.from({ length: Math.ceil(testimoni.length / 2) }).map((_, slideIndex) => {
-              const items = testimoni.slice(slideIndex * 2, slideIndex * 2 + 2);
+            {Array.from({ length: Math.ceil(testimoni.length / itemsPerSlide) }).map((_, slideIndex) => { // Menggunakan itemsPerSlide
+              const items = testimoni.slice(
+                slideIndex * itemsPerSlide,
+                slideIndex * itemsPerSlide + itemsPerSlide
+              );
               return (
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center">
@@ -99,9 +109,9 @@ const Testimoni = () => {
                           <div className="position-relative">
                             {item.media && (item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov')) ? (
                               <>
-                                <img
-                                  src={getVideoThumbnailUrl(item.media)}
-                                  alt={`Thumbnail untuk Testimoni`}
+                                <video
+                                  preload="metadata"
+                                  muted
                                   className="img-fluid rounded mb-3"
                                   style={{
                                     maxHeight: '200px',
@@ -109,18 +119,40 @@ const Testimoni = () => {
                                     width: '100%',
                                   }}
                                   onError={(e) => {
-                                    console.error(`Gagal memuat thumbnail untuk ${item.media}`);
-                                    e.target.src = 'https://via.placeholder.com/200x200?text=Video+Thumbnail';
+                                    // Sembunyikan video dan tampilkan placeholder jika gagal
+                                    console.error(`Gagal memuat video thumbnail untuk ${item.media}`);
+                                    e.target.style.display = 'none';
+                                    if (e.target.nextSibling) { // Pastikan ada nextSibling (placeholder image)
+                                      e.target.nextSibling.style.display = 'block';
+                                    }
+                                  }}
+                                >
+                                  <source src={`http://localhost:5000${item.media}`} type="video/mp4" />
+                                  Browser Anda tidak mendukung tag video.
+                                </video>
+                                {/* Placeholder image jika video gagal dimuat */}
+                                <img
+                                  src="https://placehold.co/200x200?text=Video+Thumbnail" // Placeholder yang jelas
+                                  alt={`Placeholder untuk ${item.judul || 'Video'}`}
+                                  className="img-fluid rounded mb-3"
+                                  style={{
+                                    maxHeight: '200px',
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                    display: 'none', // Hidden by default, shown only if video fails
+                                  }}
+                                  onError={(e) => {
+                                    console.error(`Gagal memuat placeholder untuk ${item.judul || 'Video'}`);
                                   }}
                                 />
-                                <div className="video-icon-overlay">
+                                <div className="video-icon-overlay" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
                                   <FaPlay className="text-white" size={24} />
                                 </div>
                               </>
                             ) : (
                               <img
-                                src={item.media || 'https://via.placeholder.com/200x200?text=No+Image'}
-                                alt="Gambar Testimoni"
+                                src={`http://localhost:5000${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
+                                alt={item.judul || 'Gambar Testimoni'} // Fallback alt text
                                 className="img-fluid rounded mb-3"
                                 style={{
                                   maxHeight: '200px',
@@ -129,11 +161,15 @@ const Testimoni = () => {
                                 }}
                                 onError={(e) => {
                                   console.error(`Gagal memuat gambar untuk testimoni`);
-                                  e.target.src = 'https://via.placeholder.com/200x200?text=No+Image';
+                                  e.target.src = 'https://placehold.co/200x200?text=No+Image';
                                 }}
                               />
                             )}
                           </div>
+                          {/* Asumsi testimoni juga punya judul seperti dokumentasi */}
+                          {item.judul && <h5 className="fw-semibold text-secondary fs-16">{item.judul}</h5>}
+                          {/* Jika testimoni tidak punya judul, tapi punya konten teks lain, bisa ditampilkan di sini */}
+                          {item.deskripsi && <p className="text-muted">{item.deskripsi}</p>}
                         </motion.div>
                       </Col>
                     ))}
