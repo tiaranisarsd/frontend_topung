@@ -8,7 +8,7 @@ const WhatsAppButton = () => {
   useEffect(() => {
     const fetchOwner = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/users');
+        const response = await axios.get('http://145.79.8.133:5000/users');
         const ownerUser = response.data.find(user => user.role === 'owner');
 
         if (ownerUser) {

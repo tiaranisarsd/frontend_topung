@@ -11,7 +11,7 @@ const Pertanyaan = () => {
   useEffect(() => {
     const fetchPertanyaan = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/Pertanyaan');
+        const response = await axios.get('http://145.79.8.133:5000/Pertanyaan');
         setPertanyaan(response.data);
       } catch (error) {
         console.error('Gagal memuat data:', error);

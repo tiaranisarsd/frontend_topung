@@ -16,7 +16,7 @@ const FormEditEdukasi = () => {
     useEffect(() => {
       const getedukasiById = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/edukasi/${id}`);
+          const response = await axios.get(`http://145.79.8.133:5000/edukasi/${id}`);
           setKonten(response.data.konten);
         } catch (error) {
           if (error.response) {
@@ -43,7 +43,7 @@ const updateEdukasi = async (e) => {
   }
 
   try {
-    await axios.patch(`http://localhost:5000/edukasi/${id}`, {
+    await axios.patch(`http://145.79.8.133:5000/edukasi/${id}`, {
       konten: konten,
     });
     setMsg("Edukasi berhasil diperbarui!");

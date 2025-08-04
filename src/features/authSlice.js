@@ -27,7 +27,7 @@ export const LoginUser = createAsyncThunk(
   "auth/LoginUser",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post("http://localhost:5000/login", userData);
+      const response = await axios.post("http://145.79.8.133:5000/login", userData);
       const { token, ...user } = response.data;
       localStorage.setItem("token", token); 
       return user;
@@ -40,7 +40,7 @@ export const LoginUser = createAsyncThunk(
 
 export const getMe = createAsyncThunk("auth/getMe", async (_, thunkAPI) => {
   try {
-    const response = await axios.get("http://localhost:5000/me");
+    const response = await axios.get("http://145.79.8.133:5000/me");
     return response.data;
   } catch (error) {
     const message = "Mohon login ke akun Anda";
@@ -50,7 +50,7 @@ export const getMe = createAsyncThunk("auth/getMe", async (_, thunkAPI) => {
 
 export const LogOut = createAsyncThunk("auth/LogOut", async (_, thunkAPI) => {
   try {
-    await axios.delete("http://localhost:5000/logout");
+    await axios.delete("http://145.79.8.133:5000/logout");
     localStorage.removeItem("token");
   } catch (error) {
     const message = error.response?.data?.msg || "Terjadi kesalahan saat logout";

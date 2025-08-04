@@ -30,7 +30,7 @@
         setLoading(true);
         setError(null); 
         try {
-          const reservasiResponse = await axios.get('http://localhost:5000/reservasi');
+          const reservasiResponse = await axios.get('http://145.79.8.133:5000/reservasi');
           setReservasi(reservasiResponse.data);
           setFilteredReservasi(reservasiResponse.data || []);
 
@@ -74,7 +74,7 @@
     const confirmDelete = async () => {
       setIsDeleting(true); 
       try {
-        await axios.delete(`http://localhost:5000/reservasi/${reservasiToDelete}`);
+        await axios.delete(`http://145.79.8.133:5000/reservasi/${reservasiToDelete}`);
         setShowDeleteModal(false);
         setToastMessage('Reservasi berhasil dihapus!');
         setToastBg('success');
@@ -83,7 +83,7 @@
         setTimeout(() => {
           const fetchData = async () => {
             try {
-              const reservasiResponse = await axios.get('http://localhost:5000/reservasi');
+              const reservasiResponse = await axios.get('http://145.79.8.133:5000/reservasi');
               setReservasi(reservasiResponse.data);
               // Reapply filter after refresh
               if (selectedTerapis) {
@@ -160,7 +160,7 @@
 
       setFilteredReservasi(updatedReservasi);
 
-      await axios.patch(`http://localhost:5000/reservasi/status`, { id, status: nextStatus });
+      await axios.patch(`http://145.79.8.133:5000/reservasi/status`, { id, status: nextStatus });
 
       setToastMessage('Status berhasil diperbarui!');
       setToastBg('success');
@@ -176,7 +176,7 @@
   };
 
     const handleImageClick = (imageUrl) => {
-      const fullImageUrl = `http://localhost:5000${imageUrl}`;
+      const fullImageUrl = `http://145.79.8.133:5000${imageUrl}`;
       setImageUrl(fullImageUrl);
       setShowImage(true);
     };
