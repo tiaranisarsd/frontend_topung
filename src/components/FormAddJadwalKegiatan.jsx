@@ -26,7 +26,7 @@ const FormAddJadwalKegiatan = () => {
     }
 
     try {
-      await axios.post("http://145.79.8.133:5000/jadwalKegiatan", {
+      await axios.post("${process.env.REACT_APP_API_URL}/jadwalKegiatan", {
         tanggal_waktu: tanggal_waktu,
         jenis_kegiatan: jenis_kegiatan,
         lokasi: lokasi,

@@ -17,7 +17,7 @@ const FormEditPertanyaan = () => {
     useEffect(() => {
       const getpertanyaanById = async () => {
         try {
-          const response = await axios.get(`http://145.79.8.133:5000/pertanyaan/${id}`);
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/pertanyaan/${id}`);
           setJudulPertanyaan(response.data.judul_pertanyaan);
           setIsiPertanyaan(response.data.isi_pertanyaan);
         } catch (error) {
@@ -52,7 +52,7 @@ const updatePertanyaan = async (e) => {
   }
 
   try {
-    await axios.patch(`http://145.79.8.133:5000/pertanyaan/${id}`, {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/pertanyaan/${id}`, {
       judul_pertanyaan: judul_pertanyaan,
       isi_pertanyaan: isi_pertanyaan
     });

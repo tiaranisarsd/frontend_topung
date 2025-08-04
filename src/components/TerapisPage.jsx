@@ -44,7 +44,7 @@ const TerapisKamiPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get('http://145.79.8.133:5000/users');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/users');
         setUsers(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error('Gagal memuat data users:', error);
@@ -58,7 +58,7 @@ const TerapisKamiPage = () => {
     const fetchAvailableJadwal = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://145.79.8.133:5000/availableJadwalTerapis");
+        const response = await axios.get("${process.env.REACT_APP_API_URL}/availableJadwalTerapis");
         setAvailableJadwal(response.data);
       } catch (error) {
         console.error("Error fetching available jadwal:", error);
@@ -166,7 +166,7 @@ const handleSubmit = async (e) => {
     }
 
     // Send the POST request
-    await axios.post('http://145.79.8.133:5000/reservasi', payload, { headers });
+    await axios.post('${process.env.REACT_APP_API_URL}/reservasi', payload, { headers });
 
     setSuccessMessage('Reservasi berhasil dikirim! Anda akan diarahkan ke WhatsApp dalam');
     
@@ -393,7 +393,7 @@ const getAvailableJadwalForTerapis = () => {
                 <Card.Body className="d-flex flex-column flex-md-row align-items-start gap-4 p-4">
                   <div className="text-center">
                     <img
-                      src={item.gambar ? `http://145.79.8.133:5000/uploads/users/${item.gambar}` : ''}
+                      src={item.gambar ? `${process.env.REACT_APP_API_URL}/uploads/users/${item.gambar}` : ''}
                       alt={item.nama}
                       className="rounded-circle"
                       style={{ objectFit: 'cover' }} 
@@ -414,7 +414,7 @@ const getAvailableJadwalForTerapis = () => {
                         <Button 
                           variant="outline-primary" 
                           className="rounded-pill px-3 px-lg-4 py-1 me-1 fw-bold fs-16" 
-                          onClick={() => handleViewCV(item.cv_pdf ? `http://145.79.8.133:5000/uploads/users/${item.cv_pdf}` : '')}
+                          onClick={() => handleViewCV(item.cv_pdf ? `${process.env.REACT_APP_API_URL}/uploads/users/${item.cv_pdf}` : '')}
                         >
                           <MdPictureAsPdf className="me-1" /> Lihat CV
                         </Button>

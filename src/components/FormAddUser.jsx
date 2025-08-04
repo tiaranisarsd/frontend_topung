@@ -95,7 +95,7 @@ const FormAddUser = () => {
         formData.append("cv_pdf", cv_pdf);
       }
 
-      await axios.post("http://145.79.8.133:5000/users", formData, {
+      await axios.post("${process.env.REACT_APP_API_URL}/users", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

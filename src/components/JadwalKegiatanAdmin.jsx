@@ -24,7 +24,7 @@ const JadwalKegiatan = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://145.79.8.133:5000/jadwalKegiatan');
+      const response = await axios.get('${process.env.REACT_APP_API_URL}/jadwalKegiatan');
       setJadwalKegiatan(response.data);
     } catch (err) {
       console.error('Error fetching jadwalKegiatan:', err);
@@ -42,7 +42,7 @@ const JadwalKegiatan = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`http://145.79.8.133:5000/jadwalKegiatan/${jadwalKegiatanToDelete}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/jadwalKegiatan/${jadwalKegiatanToDelete}`);
       setShowDeleteModal(false);
       setShowToast(true);
       getJadwalKegiatan ();
