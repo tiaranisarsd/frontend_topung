@@ -24,7 +24,7 @@ const Edukasi = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_URL}/edukasi');
+      const response = await axios.get('http://145.79.8.133:5000/edukasi');
       setEdukasi(response.data);
     } catch (err) {
       console.error('Error fetching edukasi:', err);
@@ -42,7 +42,7 @@ const Edukasi = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/edukasi/${edukasiToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/edukasi/${edukasiToDelete}`);
       setShowDeleteModal(false);
       setShowToast(true);
       getEdukasi ();

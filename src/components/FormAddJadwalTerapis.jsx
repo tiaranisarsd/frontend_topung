@@ -26,7 +26,7 @@ const FormAddJadwalTerapis = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get("${process.env.REACT_APP_API_URL}/users");
+      const response = await axios.get("http://145.79.8.133:5000/users");
       setUsers(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -46,7 +46,7 @@ const FormAddJadwalTerapis = () => {
     setIsLoading(true);
 
     try {
-      await axios.post("${process.env.REACT_APP_API_URL}/jadwalTerapis", {
+      await axios.post("http://145.79.8.133:5000/jadwalTerapis", {
         userId: Number(usersId),
         hari: hari,
         jam: jam

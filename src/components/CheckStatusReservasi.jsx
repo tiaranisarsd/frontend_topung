@@ -23,7 +23,7 @@ const CheckReservasiStatus = () => {
         setReservasi(null); 
 
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/status`, {
+            const response = await axios.get(`http://145.79.8.133:5000/status`, {
                 params: { query: inputValue }
             });
             if (response.data.length > 0) {

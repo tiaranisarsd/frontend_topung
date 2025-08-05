@@ -28,7 +28,7 @@ function Edukasi() {
   useEffect(() => {
     const getEdukasi = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/edukasi');
+        const response = await axios.get('http://145.79.8.133:5000/edukasi');
         setEdukasi(response.data);
       } catch (error) {
         console.error('Error fetching edukasi:', error);

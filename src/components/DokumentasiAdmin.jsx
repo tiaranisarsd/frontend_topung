@@ -28,7 +28,7 @@ const DokumentasiAdmin = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_URL}/dokumentasi');
+      const response = await axios.get('http://145.79.8.133:5000/dokumentasi');
       setDokumentasiAdmin(response.data);
     } catch (err) {
       console.error('Error fetching dokumentasi:', err);
@@ -46,7 +46,7 @@ const DokumentasiAdmin = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/dokumentasi/${dokumentasiToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/dokumentasi/${dokumentasiToDelete}`);
       setShowDeleteModal(false);
       setToastMessage('Dokumentasi berhasil dihapus!');
       setToastVariant('success');
@@ -65,7 +65,7 @@ const DokumentasiAdmin = () => {
   const handleMediaClick = (mediaUrl) => {
     const isVideo = mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm') || mediaUrl.endsWith('.mov');
     // Tambahkan base URL server ke path file
-    const fullUrl = `${process.env.REACT_APP_API_URL}${mediaUrl}`;
+    const fullUrl = `http://145.79.8.133:5000${mediaUrl}`;
     setSelectedMedia({ url: fullUrl, isVideo });
     setShowMediaModal(true);
   };

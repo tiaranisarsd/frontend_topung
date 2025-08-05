@@ -21,7 +21,7 @@ const Tinjauan = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_URL}/tinjauan');
+      const response = await axios.get('http://145.79.8.133:5000/tinjauan');
       setTinjauan(response.data);
     } catch (err) {
       console.error('Error fetching tinjauan:', err);
@@ -39,7 +39,7 @@ const Tinjauan = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/tinjauan/${tinjauanToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/tinjauan/${tinjauanToDelete}`);
       setShowDeleteModal(false);
       setShowToast(true);
       getTinjauan ();

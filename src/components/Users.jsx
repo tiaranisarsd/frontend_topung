@@ -25,7 +25,7 @@ const Users = () => {
     setLoading(true);
     setError(null); 
     try {
-      const response = await axios.get('${process.env.REACT_APP_API_URL}/users');
+      const response = await axios.get('http://145.79.8.133:5000/users');
       setUser (response.data);
     } catch (err) {
       console.error('Error fetching users:', err);
@@ -45,7 +45,7 @@ const Users = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/users/${userToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/users/${userToDelete}`);
       setShowDeleteModal(false);
       setShowToast(true);
       getUser ();

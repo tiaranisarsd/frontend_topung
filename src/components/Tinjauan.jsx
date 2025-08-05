@@ -50,7 +50,7 @@ function Tinjauan() {
   const getTinjauan = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("${process.env.REACT_APP_API_URL}/tinjauan");
+      const response = await axios.get("http://145.79.8.133:5000/tinjauan");
       setTinjauan(response.data);
     } catch (error) {
       console.error("Error fetching tinjauan:", error);
@@ -74,7 +74,7 @@ function Tinjauan() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("${process.env.REACT_APP_API_URL}/tinjauan", {
+      await axios.post("http://145.79.8.133:5000/tinjauan", {
         nama,
         layanan,
         rating,

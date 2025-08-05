@@ -24,7 +24,7 @@ const FormAddEdukasi = () => {
     }
 
     try {
-      await axios.post("${process.env.REACT_APP_API_URL}/edukasi", {
+      await axios.post("http://145.79.8.133:5000/edukasi", {
         konten: konten
       });
        setMsg("Edukasi berhasil disimpan!");
