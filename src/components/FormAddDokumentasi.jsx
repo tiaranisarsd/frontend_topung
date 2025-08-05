@@ -40,7 +40,7 @@ const FormAddDokumentasi = () => {
         formData.append("gambar", gambar); 
       }
 
-      await axios.post("http://145.79.8.133:5000/dokumentasi", formData, {
+      await axios.post("/api/dokumentasi", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

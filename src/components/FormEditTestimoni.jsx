@@ -19,7 +19,7 @@ const FormEditTestimoni = () => {
   useEffect(() => {
     const getTestimoniById = async () => {
       try {
-        const response = await axios.get(`http://145.79.8.133:5000/testimoni/${id}`);
+        const response = await axios.get(`/api/testimoni/${id}`);
         setFormData({
           media: response.data.media || "" 
         });
@@ -54,7 +54,7 @@ const updateTestimoni = async (e) => {
       formData.append("media", media); 
     }
 
-    await axios.patch(`http://145.79.8.133:5000/testimoni/${id}`, formData, {
+    await axios.patch(`/api/testimoni/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -115,12 +115,12 @@ const updateTestimoni = async (e) => {
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     >
-                      <source src={`http://145.79.8.133:5000${formData.media}`} type="video/mp4" />
+                      <source src={`/api${formData.media}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img 
-                      src={`http://145.79.8.133:5000${formData.media}`} 
+                      src={`/api${formData.media}`} 
                       alt="Testimoni Saat Ini" 
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 

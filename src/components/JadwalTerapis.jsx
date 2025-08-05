@@ -36,7 +36,7 @@ const JadwalTerapis = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get("http://145.79.8.133:5000/users");
+            const response = await axios.get("/api/users");
             setUsersList(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error("Error fetching users:", error);
@@ -57,7 +57,7 @@ const JadwalTerapis = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`http://145.79.8.133:5000/jadwalTerapis/users/${userId}`);
+            const response = await axios.get(`/api/jadwalTerapis/users/${userId}`);
             setJadwal(response.data || []);
         } catch (error) {
             console.error("Error fetching jadwal by user:", error);
@@ -79,7 +79,7 @@ const JadwalTerapis = () => {
         setIsDeleting(true);
         setError(null);
         try {
-            await axios.delete(`http://145.79.8.133:5000/jadwalTerapis/${jadwalToDelete}`);
+            await axios.delete(`/api/jadwalTerapis/${jadwalToDelete}`);
             setMsg("Jadwal berhasil dihapus!");
             setShowToast(true);
             setShowDeleteModal(false);

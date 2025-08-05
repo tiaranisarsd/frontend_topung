@@ -36,7 +36,7 @@ const Testimoni = () => {
   useEffect(() => {
     const fetchTestimoni = async () => {
       try {
-        const response = await fetch('http://145.79.8.133:5000/testimoni');
+        const response = await fetch('/api/testimoni');
         const data = await response.json();
         setTestimoni(data);
       } catch (error) {
@@ -58,7 +58,7 @@ const Testimoni = () => {
   };
 
   const openViewer = useCallback((url, isVid = false) => {
-    const fullUrl = `http://145.79.8.133:5000${url}`;
+    const fullUrl = `/api${url}`;
     setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
@@ -127,7 +127,7 @@ const Testimoni = () => {
                                     }
                                   }}
                                 >
-                                  <source src={`http://145.79.8.133:5000${item.media}`} type="video/mp4" />
+                                  <source src={`/api${item.media}`} type="video/mp4" />
                                   Browser Anda tidak mendukung tag video.
                                 </video>
                                 {/* Placeholder image jika video gagal dimuat */}
@@ -151,7 +151,7 @@ const Testimoni = () => {
                               </>
                             ) : (
                               <img
-                                src={`http://145.79.8.133:5000${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
+                                src={`/api${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul || 'Gambar Testimoni'} // Fallback alt text
                                 className="img-fluid rounded mb-3"
                                 style={{

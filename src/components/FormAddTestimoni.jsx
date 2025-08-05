@@ -36,7 +36,7 @@ const FormAddTestimoni = () => {
         formData.append("media", media); 
       }
 
-      await axios.post("http://145.79.8.133:5000/testimoni", formData, {
+      await axios.post("/api/testimoni", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

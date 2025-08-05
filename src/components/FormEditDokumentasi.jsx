@@ -21,7 +21,7 @@ const FormEditDokumentasi = () => {
   useEffect(() => {
     const getDokumentasiById = async () => {
       try {
-        const response = await axios.get(`http://145.79.8.133:5000/dokumentasi/${id}`);
+        const response = await axios.get(`/api/dokumentasi/${id}`);
         setFormData({
           judul: response.data.judul,
           gambar: response.data.gambar || "" 
@@ -65,7 +65,7 @@ const FormEditDokumentasi = () => {
         formDataToSend.append("gambar", gambar); // Append file baru jika ada
       }
 
-      await axios.patch(`http://145.79.8.133:5000/dokumentasi/${id}`, formDataToSend, {
+      await axios.patch(`/api/dokumentasi/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -130,12 +130,12 @@ const FormEditDokumentasi = () => {
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 
                     >
-                      <source src={`http://145.79.8.133:5000${formData.gambar}`} type="video/mp4" />
+                      <source src={`/api${formData.gambar}`} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img 
-                      src={`http://145.79.8.133:5000${formData.gambar}`} 
+                      src={`/api${formData.gambar}`} 
                       alt="Dokumentasi Saat Ini" 
                       className="shadow-sm rounded"
                       style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }} 

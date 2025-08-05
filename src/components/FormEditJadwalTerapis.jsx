@@ -22,7 +22,7 @@ const FormEditJadwalTerapis = () => {
 useEffect(() => {
   const getJadwalByUserAndId = async () => {
     try {
-      const response = await axios.get(`http://145.79.8.133:5000/jadwalTerapis/users/${userId}/${id}`);
+      const response = await axios.get(`/api/jadwalTerapis/users/${userId}/${id}`);
       setHari(response.data.hari);
       setJam(response.data.jam);
       setUsersId(response.data.userId);
@@ -55,7 +55,7 @@ useEffect(() => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get("http://145.79.8.133:5000/users");
+      const response = await axios.get("/api/users");
       setUsers(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -81,7 +81,7 @@ const updateJadwal = async (e) => {
   setIsLoading(true);
 
   try {
-    await axios.patch(`http://145.79.8.133:5000/jadwalTerapis/users/${userId}/${id}`, {
+    await axios.patch(`/api/jadwalTerapis/users/${userId}/${id}`, {
       hari: hari,
       jam: jam
     });

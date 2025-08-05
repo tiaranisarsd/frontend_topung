@@ -18,7 +18,7 @@ const FormEditJadwalKegiatan = () => {
   useEffect(() => {
     const getJadwalKegiatanById = async () => {
       try {
-        const response = await axios.get(`http://145.79.8.133:5000/jadwalKegiatan/${id}`);
+        const response = await axios.get(`/api/jadwalKegiatan/${id}`);
         const rawTanggalWaktu = response.data.tanggal_waktu;
         const date = new Date(rawTanggalWaktu);
         const isoString = date.toISOString().slice(0, 16); 
@@ -55,7 +55,7 @@ const FormEditJadwalKegiatan = () => {
     const formattedDate = date.toISOString(); // Format: YYYY-MM-DDTHH:mm:ss.sssZ
 
     try {
-      await axios.patch(`http://145.79.8.133:5000/jadwalKegiatan/${id}`, {
+      await axios.patch(`/api/jadwalKegiatan/${id}`, {
         tanggal_waktu: formattedDate,
         jenis_kegiatan: jenis_kegiatan,
         lokasi: lokasi,

@@ -52,7 +52,7 @@ function Hero() {
 useEffect(() => {
   const fetchTerapis = async () => {
     try {
-      const response = await axios.get('http://145.79.8.133:5000/users'); 
+      const response = await axios.get('/api/users'); 
       setUsers(response.data || []);
     } catch (error) {
       console.error('Gagal memuat data users:', error);
@@ -62,7 +62,7 @@ useEffect(() => {
 
   const fetchJadwal = async () => {
     try {
-      const response = await axios.get('http://145.79.8.133:5000/jadwalTerapis'); 
+      const response = await axios.get('/api/jadwalTerapis'); 
       setJadwal(response.data || []);
     } catch (error) {
       console.error('Gagal memuat data jadwal:', error);
@@ -73,7 +73,7 @@ useEffect(() => {
   const fetchAvailableJadwal = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://145.79.8.133:5000/availableJadwalTerapis");
+      const response = await axios.get("/api/availableJadwalTerapis");
       setAvailableJadwal(response.data || []);
     } catch (error) {
       console.error("Error fetching available jadwal:", error);
@@ -291,7 +291,7 @@ const handleSubmit = async (e) => {
     }
 
     // Send the POST request
-    await axios.post('http://145.79.8.133:5000/reservasi', payload, { headers });
+    await axios.post('/api/reservasi', payload, { headers });
 
     setSuccessMessage('Reservasi berhasil dikirim! Anda akan diarahkan ke WhatsApp dalam');
     
