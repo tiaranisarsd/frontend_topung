@@ -28,7 +28,7 @@ const TestimoniAdmin = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('/api/testimoni');
+      const response = await axios.get('http://145.79.8.133:5000/testimoni');
       setTestimoniAdmin(response.data);
     } catch (err) {
       console.error('Error fetching testimoni:', err);
@@ -46,7 +46,7 @@ const TestimoniAdmin = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`/api/testimoni/${testimoniToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/testimoni/${testimoniToDelete}`);
       setShowDeleteModal(false);
       setToastMessage('Testimoni berhasil dihapus!');
       setToastVariant('success');
@@ -65,7 +65,7 @@ const TestimoniAdmin = () => {
   const handleMediaClick = (mediaUrl) => {
     const isVideo = mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.webm') || mediaUrl.endsWith('.mov');
     // Tambahkan base URL server ke path file
-    const fullUrl = `/api${mediaUrl}`;
+    const fullUrl = `http://145.79.8.133:5000${mediaUrl}`;
     setSelectedMedia({ url: fullUrl, isVideo });
     setShowMediaModal(true);
   };

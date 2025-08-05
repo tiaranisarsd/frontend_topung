@@ -24,7 +24,7 @@ const Pertanyaan = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get('/api/pertanyaan');
+      const response = await axios.get('http://145.79.8.133:5000/pertanyaan');
       setPertanyaan(response.data);
     } catch (err) {
       console.error('Error fetching pertanyaan:', err);
@@ -42,7 +42,7 @@ const Pertanyaan = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      await axios.delete(`/api/pertanyaan/${pertanyaanToDelete}`);
+      await axios.delete(`http://145.79.8.133:5000/pertanyaan/${pertanyaanToDelete}`);
       setShowDeleteModal(false);
       setShowToast(true);
       getPertanyaan ();

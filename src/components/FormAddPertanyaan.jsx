@@ -25,7 +25,7 @@ const FormAddPertanyaan = () => {
     }
 
     try {
-      await axios.post("/api/pertanyaan", {
+      await axios.post("http://145.79.8.133:5000/pertanyaan", {
         judul_pertanyaan: judul_pertanyaan,
         isi_pertanyaan: isi_pertanyaan
       });

@@ -14,7 +14,7 @@ const Dokumentasi = () => {
   useEffect(() => {
     const fetchDokumentasi = async () => {
       try {
-        const response = await fetch('/api/dokumentasi');
+        const response = await fetch('http://145.79.8.133:5000/dokumentasi');
         const data = await response.json();
         console.log("Data dokumentasi dari API:", data);
         setDokumentasi(data);
@@ -55,7 +55,7 @@ const Dokumentasi = () => {
   }, []);
 
   const openViewer = useCallback((url, isVid = false) => {
-    const fullUrl = `/api${url}`;
+    const fullUrl = `http://145.79.8.133:5000${url}`;
     setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
@@ -121,7 +121,7 @@ const Dokumentasi = () => {
                                     e.target.nextSibling.style.display = 'block'; 
                                   }}
                                 >
-                                  <source src={`/api${item.gambar}`} type="video/mp4" />
+                                  <source src={`http://145.79.8.133:5000${item.gambar}`} type="video/mp4" />
                                   Browser Anda tidak mendukung tag video.
                                 </video>
                                 <img
@@ -144,7 +144,7 @@ const Dokumentasi = () => {
                               </>
                             ) : (
                               <img
-                                src={`/api${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
+                                src={`http://145.79.8.133:5000${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul}
                                 className="img-fluid rounded mb-3"
                                 style={{

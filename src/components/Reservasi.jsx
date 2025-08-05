@@ -26,14 +26,14 @@ const Reservasi = () => {
     const [isDeleting, setIsDeleting] = useState(false); 
 
     // Base URL for images
-    const BASE_IMAGE_URL = '/api/uploads/reservasi/'; // Pastikan ini sesuai dengan path upload bukti pembayaran Anda
+    const BASE_IMAGE_URL = 'http://145.79.8.133:5000/uploads/reservasi/'; // Pastikan ini sesuai dengan path upload bukti pembayaran Anda
 
     // Fungsi untuk mengambil data reservasi
     const fetchData = async () => {
         setLoading(true);
         setError(null); 
         try {
-            const reservasiResponse = await axios.get('/api/reservasi');
+            const reservasiResponse = await axios.get('http://145.79.8.133:5000/reservasi');
             setReservasi(reservasiResponse.data);
             // Inisialisasi filteredReservasi dengan semua data saat pertama kali fetch
             setFilteredReservasi(reservasiResponse.data || []);
@@ -79,7 +79,7 @@ const Reservasi = () => {
     const confirmDelete = async () => {
         setIsDeleting(true); 
         try {
-            await axios.delete(`/api/reservasi/${reservasiToDelete}`);
+            await axios.delete(`http://145.79.8.133:5000/reservasi/${reservasiToDelete}`);
             setShowDeleteModal(false);
             setToastMessage('Reservasi berhasil dihapus!');
             setToastBg('success');
@@ -141,7 +141,7 @@ const Reservasi = () => {
                 }
             }
 
-            await axios.patch(`/api/reservasi/status`, { id, status: nextStatus, jadwalId: jadwalId });
+            await axios.patch(`http://145.79.8.133:5000/reservasi/status`, { id, status: nextStatus, jadwalId: jadwalId });
 
             setToastMessage('Status berhasil diperbarui!');
             setToastBg('success');

@@ -30,7 +30,7 @@ const FormEditUser   = () => {
   useEffect(() => {
     const getusersById = async () => {
       try {
-        const response = await axios.get(`/api/users/${id}`);
+        const response = await axios.get(`http://145.79.8.133:5000/users/${id}`);
         setName(response.data.nama || "");
         setEmail(response.data.email || "");
         setRole(response.data.role || "");
@@ -43,8 +43,8 @@ const FormEditUser   = () => {
         setExistingCvPdf(response.data.cv_pdf || "");
 
         // Log the existing image and CV URLs
-        console.log("Existing Gambar URL:", `/api/uploads/users/${response.data.gambar}`);
-        console.log("Existing CV PDF URL:", `/api/uploads/users/${response.data.cv_pdf}`);
+        console.log("Existing Gambar URL:", `http://145.79.8.133:5000/uploads/users/${response.data.gambar}`);
+        console.log("Existing CV PDF URL:", `http://145.79.8.133:5000/uploads/users/${response.data.cv_pdf}`);
       } catch (error) {
         setMsg(error.response?.data.msg || "Gagal memuat data pengguna.");
         setShowToast(true);
@@ -121,7 +121,7 @@ const FormEditUser   = () => {
         formDataToSend.append("existingCvPdf", existingCvPdf);
       }
 
-      await axios.patch(`/api/users/${id}`, formDataToSend, {
+      await axios.patch(`http://145.79.8.133:5000/users/${id}`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -176,7 +176,7 @@ const FormEditUser   = () => {
               {existingGambar && !gambar && (
                 <div className="mb-2">
                   <img 
-                    src={`/api/uploads/users/${existingGambar}`} 
+                    src={`http://145.79.8.133:5000/uploads/users/${existingGambar}`} 
                     alt="Gambar Saat Ini" 
                     className="shadow-sm rounded"
                     style={{ maxWidth: '200px', maxHeight: '150px', objectFit: 'contain' }} 
@@ -211,7 +211,7 @@ const FormEditUser   = () => {
               {existingCvPdf && !cv_pdf && (
                 <div className="mb-2">
                   <p>
-                    CV Saat Ini: <a href={`/api/uploads/users/${existingCvPdf}`} target="_blank" rel="noopener noreferrer">Lihat CV</a>
+                    CV Saat Ini: <a href={`http://145.79.8.133:5000/uploads/users/${existingCvPdf}`} target="_blank" rel="noopener noreferrer">Lihat CV</a>
                   </p>
                 </div>
               )}

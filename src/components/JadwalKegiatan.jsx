@@ -32,7 +32,7 @@ const JadwalKegiatan = () => {
   useEffect(() => {
     const fetchJadwalKegiatan = async () => {
       try {
-        const response = await axios.get('/api/jadwalKegiatan');
+        const response = await axios.get('http://145.79.8.133:5000/jadwalKegiatan');
         setJadwalKegiatan(response.data);
       } catch (error) {
         console.error('Gagal memuat data:', error);
