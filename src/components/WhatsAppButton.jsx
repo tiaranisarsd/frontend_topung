@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const WhatsAppButton = () => {
   const [owner, setOwner] = useState(null);
+  const [whatsappNumber, setWhatsappNumber] = useState(null);
 
   useEffect(() => {
     const fetchOwner = async () => {
@@ -13,6 +14,22 @@ const WhatsAppButton = () => {
 
         if (ownerUser) {
           setOwner(ownerUser);
+          
+          let number = ownerUser.no_telp;
+          if (number) {
+            // Hapus semua karakter non-digit kecuali tanda +
+            number = number.replace(/[^0-9+]/g, ''); 
+            
+            // Jika diawali dengan '0', ganti dengan '62'
+            if (number.startsWith('0')) {
+              number = '62' + number.substring(1);
+            } 
+            // Jika tidak diawali dengan '62', tambahkan '62' di awal
+            else if (!number.startsWith('62')) {
+              number = '62' + number;
+            }
+          }
+          setWhatsappNumber(number);
         }
       } catch (error) {
         console.error('Gagal mengambil data owner:', error);
@@ -22,8 +39,6 @@ const WhatsAppButton = () => {
     fetchOwner();
   }, []);
 
-  const whatsappNumber = owner?.no_telp?.replace(/^0/, '62');
-
   const handleClick = () => {
     if (!whatsappNumber) return;
 
@@ -31,7 +46,7 @@ const WhatsAppButton = () => {
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
   };
 
-  if (!whatsappNumber) return null; 
+  if (!whatsappNumber) return null;
 
   return (
     <div
