@@ -25,17 +25,12 @@ const Reservasi = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [isDeleting, setIsDeleting] = useState(false); 
 
-    // Base URL for images
-    const BASE_IMAGE_URL = 'http://145.79.8.133:5000/uploads/reservasi/'; // Pastikan ini sesuai dengan path upload bukti pembayaran Anda
-
-    // Fungsi untuk mengambil data reservasi
     const fetchData = async () => {
         setLoading(true);
         setError(null); 
         try {
             const reservasiResponse = await axios.get('http://145.79.8.133:5000/reservasi');
             setReservasi(reservasiResponse.data);
-            // Inisialisasi filteredReservasi dengan semua data saat pertama kali fetch
             setFilteredReservasi(reservasiResponse.data || []);
 
             const uniqueTerapisNames = [...new Set(
@@ -54,9 +49,8 @@ const Reservasi = () => {
 
     useEffect(() => {
         fetchData();
-    }, []); // Panggil fetchData hanya sekali saat komponen dimuat
+    }, []); 
 
-    // Update filtered reservations when selectedTerapis or selectedStatus changes
     useEffect(() => {
         let filtered = reservasi;
 
@@ -85,7 +79,6 @@ const Reservasi = () => {
             setToastBg('success');
             setShowToast(true);
 
-            // Langsung panggil fetchData untuk merefresh tabel setelah penghapusan
             fetchData(); 
         } catch (err) {
             console.error('Error deleting Reservasi:', err);
@@ -117,22 +110,17 @@ const Reservasi = () => {
 
         const nextStatus = currentStatus === 'Menunggu' ? 'Disetujui' : currentStatus === 'Disetujui' ? 'Selesai' : 'Dibatalkan';
         try {
-            // Optimistic UI update (opsional, bisa dihapus jika ingin sepenuhnya bergantung pada fetch ulang)
             const updatedReservasiList = [...filteredReservasi];
             updatedReservasiList[index].status = nextStatus;
             setFilteredReservasi(updatedReservasiList); // Update UI secara instan
 
             if (nextStatus === 'Disetujui') {
                 if (jadwalId && jadwalId !== '0') {
-                    // Logika ini mungkin lebih baik ditangani sepenuhnya di backend dan hanya di-trigger oleh status
-                    // updatedReservasiList[index].tanggal_waktu = 'berhasil disetujui untuk tanggal ini'; // Ini adalah pesan UI lokal, backend harus mengelola data sebenarnya
                 } else {
-                    // Jika jadwal tidak valid, batalkan reservasi
                     updatedReservasiList[index].status = 'Dibatalkan';
                     updatedReservasiList[index].tanggal_waktu = 'reservasi dibatalkankan karena jadwal tidak tersedia';
-                    setFilteredReservasi(updatedReservasiList); // Update UI dengan status Dibatalkan
+                    setFilteredReservasi(updatedReservasiList); 
 
-                    // Kirim pesan ke pelanggan melalui WhatsApp
                     const reservasiItem = updatedReservasiList[index];
                     const pelangganNoTelp = reservasiItem.no_telp;
                     const pesanDefault = "Mohon maaf, reservasi Anda telah dibatalkankan karena jadwal yang Anda pilih sudah disetujui untuk pelanggan lain terlebih dahulu. Kami mohon maaf atas ketidaknyamanan ini. Silakan hubungi kami untuk memilih jadwal lain. Terima kasih.";
@@ -147,9 +135,7 @@ const Reservasi = () => {
             setToastBg('success');
             setShowToast(true);
 
-            // === PERBAIKAN: Refresh data setelah status berhasil diupdate ===
             fetchData(); 
-            // ===============================================================
 
         } catch (err) {
             console.error('Error updating status:', err);
@@ -158,16 +144,15 @@ const Reservasi = () => {
             setToastMessage(errorMessage);
             setToastBg('danger');
             setShowToast(true);
-            // Jika terjadi error, mungkin Anda ingin me-revert UI ke status sebelumnya
-            fetchData(); // Panggil fetchData untuk mengembalikan UI ke state yang benar dari server
+            fetchData();
         }
     };
 
-    const handleImageClick = (imageFileName) => {
-        const fullImageUrl = `${BASE_IMAGE_URL}${imageFileName}`;
-        setImageUrl(fullImageUrl);
-        setShowImage(true);
-    };
+    const handleImageClick = (imageUrl) => {
+      const fullImageUrl = `http://145.79.8.133:5000${imageUrl}`;
+      setImageUrl(fullImageUrl);
+      setShowImage(true);
+      };
 
     const handlePrintPdf = () => {
         const doc = new jsPDF('l', 'mm', [297, 210]);
