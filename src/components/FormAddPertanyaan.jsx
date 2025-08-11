@@ -100,7 +100,7 @@ const FormAddPertanyaan = () => {
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="btn btn-success ms-2"
+                    className="btn btn-primary ms-2"
                   >
                     {isLoading ? (
                   <>

@@ -51,7 +51,7 @@ function Sidebar({ isMobile }) {
   return (
     <>
       <div className='ms-lg-2 ' style={{ width: '200px', height: '100vh' }}>
-        <Nav className="flex-column ms-lg-2 ms-4 justify-content-center align-items-center h-100 me-lg-4 list-group" style={{position: 'fixed'}}>
+        <Nav className="flex-column ms-lg-2 ms-4 justify-content-center align-items-center h-75 pt-5 mt-4 me-lg-4 list-group" style={{position: 'fixed'}}>
           {navItems.map((item) => (
             <Nav.Item key={item.path} className={`w-100 my-1`}>
               <Nav.Link

@@ -247,7 +247,7 @@ function Tinjauan() {
               </Form.Group>
 
               <div className="text-center d-flex justify-content-end">
-                <Button className="btn-success px-4" type="submit" disabled={!nama || !layanan || !tinjauanText || rating === 0}>
+                <Button className="btn-primary px-4" type="submit" disabled={!nama || !layanan || !tinjauanText || rating === 0}>
                   Kirim
                 </Button>
               </div>

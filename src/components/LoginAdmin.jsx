@@ -109,7 +109,7 @@ const LoginAdmin = () => {
 
                         <div className="d-flex flex-column align-items-center mt-4">
                     <Button
-                        variant="success"
+                        variant="primary"
                         type="submit"
                         disabled={isLoading}
                         style={{ width: '100%' }}

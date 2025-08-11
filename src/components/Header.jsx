@@ -78,19 +78,6 @@ function Header({ showLoginButtonInOffcanvas = true }) {
                                     </Nav.Link>
                                 </Nav>
                             </Navbar.Collapse>
-
-                            {/* {showLoginButtonInOffcanvas && (
-                                <div className="mt-4">
-                                    <button
-                                        onClick={() => handleNavLinkClick("/login")} 
-                                        className="btn btn-success fw-bold w-100 d-flex align-items-center justify-content-center"
-                                        type="button"
-
-                                    >
-                                        <IoLogIn className="me-2" /> Login Admin
-                                    </button>
-                                </div>
-                            )} */}
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
 
@@ -124,7 +111,7 @@ function Header({ showLoginButtonInOffcanvas = true }) {
 
                         {/* <button
                             onClick={() => handleNavLinkClick("/login")} // Use handleNavLinkClick
-                            className="btn btn-success fw-bold d-flex align-items-center"
+                            className="btn btn-primary fw-bold d-flex align-items-center"
                             type="button"
 
                         >

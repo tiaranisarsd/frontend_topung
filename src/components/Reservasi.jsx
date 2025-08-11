@@ -276,13 +276,13 @@ const Reservasi = () => {
             <h2 className="mt-5 text-blue fw-bold">Daftar Reservasi</h2>
             <Row className="align-items-center flex-wrap mb-3 mt-4">
                 <Col xs="12" sm="auto" className="d-flex align-items-center flex-wrap mb-3 mb-lg-0">
-                    <Button variant="success" size="sm" onClick={handlePrintPdf} className="me-2">
+                    <Button variant="primary" size="sm" onClick={handlePrintPdf} className="me-2">
                         <FaFilePdf className="me-1" /> Print PDF
                     </Button>
 
                     {users && users.role === "owner" && (
                         <div className="d-flex align-items-center ms-2">
-                            <span className="me-2 fw-semibold">Terapis:</span>
+                            <span className="me-2 text-dark fw-semibold">Terapis:</span>
                             <Dropdown onSelect={(e) => setSelectedTerapis(e)}>
                                 <Dropdown.Toggle variant="outline-secondary" size="sm">
                                     {selectedTerapis || "Semua"}
@@ -301,7 +301,7 @@ const Reservasi = () => {
                 </Col>
 
                 <Col sm="auto" className="d-flex align-items-center mb-2 mb-lg-0">
-                    <span className="me-2 fw-semibold">Status:</span>
+                    <span className="me-2 text-dark fw-semibold">Status:</span>
                     <Dropdown onSelect={(e) => setSelectedStatus(e)}>
                         <Dropdown.Toggle variant="outline-secondary" size="sm">
                             {selectedStatus || "Semua"}
@@ -367,11 +367,11 @@ const Reservasi = () => {
                                     </td>
                                     <td>
                                         <Dropdown align="end" className="ms-2">
-                                            <Dropdown.Toggle variant="link" className="p-0 text-dark" id="dropdown-basic">
+                                            <Dropdown.Toggle variant="link" className="p-0 text-dark pt-3" id="dropdown-basic">
                                                 <span
-                                                    className={`badge ${item.status === "Menunggu" ? "bg-warning" : 
-                                                        item.status === "Disetujui" ? "bg-info" : 
-                                                        item.status === "Dibatalkan" ? "bg-danger" : 
+                                                    className={`badge ${item.status === "Menunggu" ? " text-dark fw-normal bg-warning" : 
+                                                        item.status === "Disetujui" ? "text-dark fw-normal bg-info" : 
+                                                        item.status === "Dibatalkan" ? "text-dark fw-normal bg-danger" : 
                                                         "bg-success"}`}
                                                 >
                                                     {item.status}
