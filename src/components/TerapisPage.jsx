@@ -404,7 +404,9 @@ const getAvailableJadwalForTerapis = () => {
                   <div className="flex-grow-1">
                     <h5 className="fw-bold text-blue mb-1">{item.nama}</h5>
                     <div className="d-flex justify-content-between align-items-center mb-4">
+                      <div className="text-muted text-blue d-flex align-items-center">
                         <MdLocationPin size={18} className="me-2 text-blue"/> {item.alamat || 'Alamat tidak tersedia'}
+                      </div>
                       <div>
                         <Button className="btn-reservasi rounded-pill px-3 px-lg-4 py-1 me-1 fw-bold fs-16" onClick={() => handleOpenModal(item)}>
                           Reservasi
