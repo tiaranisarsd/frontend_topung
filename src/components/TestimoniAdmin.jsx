@@ -188,7 +188,7 @@ const TestimoniAdmin = () => {
                       <>
                         <Link
                           to={`/testimoni/edit/${testimoni.id}`}
-                          className="btn btn-sm btn-info me-2 text-white"
+                          className="btn btn-sm btn-primary me-2 text-white"
                         >
                           <FaEdit />
                         </Link>

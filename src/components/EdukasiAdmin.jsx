@@ -136,7 +136,7 @@ const Edukasi = () => {
                      users.role === "owner" || edukasi.userId === users.id ? (
                      <><Link
                                       to={`/edukasi/edit/${edukasi.id}`}
-                                      className="btn btn-sm btn-info me-2 text-white"
+                                      className="btn btn-sm btn-primary me-2 text-white"
                                   >
                                       <FaEdit />
                                   </Link><Button

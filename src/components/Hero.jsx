@@ -391,48 +391,48 @@ const getAvailableJadwalForTerapis = () => {
 
 
   return (
-    <div className="hero-section bg-light2 text-blue px-lg-1 py-5 my-lg-5" id='beranda'>
+    <div className="hero-section bg-light2 text-blue py-5 my-lg-5" id='beranda'>
       <Container>
-        <Row className="align-items-center justify-content-center">
-          <Col md={5} className='text-center text-md-start mx-1'>
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="hero-title mt-4 fs-2 fw-bold"
-            >
-              {titleText1}
-              {typingStage > 1 && <><br/>{titleText2}</>}
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className='mb-5 mt-4 d-grid d-md-block'
-            >
-              <motion.button
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
-                className="rounded-pill bg-blue text-light border-0 shadow-none fw-medium px-3 py-1"
-                variant="success"
-                onClick={handleOpenModal}
-              >
-                Reservasi
-              </motion.button>
-            </motion.div>
-          </Col>
-          <Col style={{ maxWidth: '400px', maxHeight: '400px' }} md={6} className='text-center'>
-            <motion.img
-              variants={imageVariants}
-              initial="hidden"
-              animate="visible"
-              src={hero}
-              alt="Hero"
-              className="img-fluid rounded"
-            />
-          </Col>
-        </Row>
+<Row className="align-items-center">
+  <Col md={5} className='text-center text-md-start'>
+    <motion.h1
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="hero-title mt-4 fs-1 fw-bold"
+    >
+      {titleText1}
+      {typingStage > 1 && <> {titleText2}</>}
+    </motion.h1>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      className='mb-5 mt-4 d-grid d-md-block'
+    >
+      <motion.button
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        className="rounded-pill fs-8 bg-blue text-light border-0 shadow-none fw-medium px-3 py-1"
+        variant="success"
+        onClick={handleOpenModal}
+      >
+        Reservasi
+      </motion.button>
+    </motion.div>
+  </Col>
+  <Col style={{ maxWidth: '1000px', maxHeight: '1000px' }} md={6} className='text-center ms-auto'>
+    <motion.img
+      variants={imageVariants}
+      initial="hidden"
+      animate="visible"
+      src={hero}
+      alt="Hero"
+      className="img-fluid rounded"
+    />
+  </Col>
+</Row>
       </Container>
       
       {/* Modal */}

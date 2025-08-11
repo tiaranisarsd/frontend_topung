@@ -27,8 +27,8 @@ const Pertanyaan = () => {
   };
 
   return (
-    <div className="my-5 w-75 mx-auto " id="pertanyaan">
-      <h6 className="fw-bold text-blue ms-3 pb-2">Pertanyaan Umum</h6>
+    <div className="my-5 py-5 mx-5 " id="pertanyaan">
+      <h2 className="fw-bold text-center text-blue ms-3 pb-5">Pertanyaan Umum</h2>
 
       {loading ? (
         <div className="text-center text-muted">Memuat pertanyaan...</div>

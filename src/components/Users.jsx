@@ -140,7 +140,7 @@ const Users = () => {
                     users.role === "owner" || user.id === users.id ? (
                     <Link
                       to={`/users/edit/${user.id}`}
-                      className="btn btn-sm btn-info me-2 text-white"
+                      className="btn btn-sm btn-primary me-2 text-white"
                     >
                       <FaEdit />
                     </Link>

@@ -190,7 +190,7 @@ const DokumentasiAdmin = () => {
                       <>
                         <Link
                           to={`/dokumentasi/edit/${dokumentasi.id}`}
-                          className="btn btn-sm btn-info me-2 text-white"
+                          className="btn btn-sm btn-primary me-2 text-white"
                         >
                           <FaEdit />
                         </Link>

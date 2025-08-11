@@ -11,19 +11,16 @@ const Testimoni = () => {
   const [mediaUrl, setMediaUrl] = useState('');
   const [isVideo, setIsVideo] = useState(false);
 
-  // === START: Penyesuaian agar seperti Dokumentasi ===
-  // Fungsi untuk menentukan jumlah item per slide berdasarkan lebar layar
   const getItemsPerSlide = useCallback(() => {
     if (window.innerWidth < 768) {
       return 1;
     } else {
       return 2;
     }
-  }, []); // useCallback untuk memoize fungsi
+  }, []);
 
   const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
 
-  // useEffect untuk memantau perubahan ukuran layar
   useEffect(() => {
     const handleResize = () => {
       setItemsPerSlide(getItemsPerSlide());
@@ -31,7 +28,6 @@ const Testimoni = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [getItemsPerSlide]);
-  // === END: Penyesuaian agar seperti Dokumentasi ===
 
   useEffect(() => {
     const fetchTestimoni = async () => {
@@ -73,7 +69,7 @@ const Testimoni = () => {
   }, []);
 
   return (
-    <div className="testimoni-page bg-white my-4 py-5" id="testimoni">
+    <div className="testimoni-page bg-white my-5 py-5" id="testimoni">
       <Container>
         <h2 className="text-center text-blue my-4 fw-bold">Testimoni</h2>
 
@@ -84,45 +80,45 @@ const Testimoni = () => {
             activeIndex={index}
             onSelect={handleSelect}
             indicators={true}
-            nextIcon={<FaChevronRight className='text-blue fs-4' />}
-            prevIcon={<FaChevronLeft className='text-blue fs-4' />}
+            nextIcon={<span className="rounded-circle bg-white p-2 shadow-sm"><FaChevronRight className='text-blue fs-4' /></span>}
+            prevIcon={<span className="rounded-circle bg-white p-2 shadow-sm"><FaChevronLeft className='text-blue fs-4' /></span>}
             interval={4000}
           >
-            {Array.from({ length: Math.ceil(testimoni.length / itemsPerSlide) }).map((_, slideIndex) => { // Menggunakan itemsPerSlide
+            {Array.from({ length: Math.ceil(testimoni.length / itemsPerSlide) }).map((_, slideIndex) => {
               const items = testimoni.slice(
                 slideIndex * itemsPerSlide,
                 slideIndex * itemsPerSlide + itemsPerSlide
               );
               return (
                 <Carousel.Item key={slideIndex}>
-                  <Row className="justify-content-center">
+                  <Row className="justify-content-center g-2">
                     {items.map((item) => (
-                      <Col md={5} className="mx-2 mb-4" key={item.id}>
+                      <Col md={3} className="mt-2 mb-4" key={item.id}
+                        onClick={() =>
+                          openViewer(item.media, item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov'))
+                        }
+                        style={{ cursor: 'pointer', padding: '10px' }}
+                      >
                         <motion.div
-                          whileHover={{ scale: 1.02, cursor: 'pointer' }}
+                          whileHover={{ scale: 1.02 }}
                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                          className="bg-light rounded text-center p-4 shadow-sm"
-                          onClick={() =>
-                            openViewer(item.media, item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov'))
-                          }
                         >
-                          <div className="position-relative">
+                          <div className="position-relative" style={{ maxHeight: '250px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             {item.media && (item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov')) ? (
                               <>
                                 <video
                                   preload="metadata"
                                   muted
-                                  className="img-fluid rounded mb-3"
+                                  className="img-fluid rounded"
                                   style={{
-                                    maxHeight: '200px',
+                                    height: '350px',
                                     objectFit: 'cover',
                                     width: '100%',
                                   }}
                                   onError={(e) => {
-                                    // Sembunyikan video dan tampilkan placeholder jika gagal
                                     console.error(`Gagal memuat video thumbnail untuk ${item.media}`);
                                     e.target.style.display = 'none';
-                                    if (e.target.nextSibling) { // Pastikan ada nextSibling (placeholder image)
+                                    if (e.target.nextSibling) {
                                       e.target.nextSibling.style.display = 'block';
                                     }
                                   }}
@@ -130,16 +126,15 @@ const Testimoni = () => {
                                   <source src={`http://145.79.8.133:5000${item.media}`} type="video/mp4" />
                                   Browser Anda tidak mendukung tag video.
                                 </video>
-                                {/* Placeholder image jika video gagal dimuat */}
                                 <img
-                                  src="https://placehold.co/200x200?text=Video+Thumbnail" // Placeholder yang jelas
+                                  src="https://placehold.co/200x200?text=Video+Thumbnail"
                                   alt={`Placeholder untuk ${item.judul || 'Video'}`}
-                                  className="img-fluid rounded mb-3"
+                                  className="img-fluid rounded"
                                   style={{
-                                    maxHeight: '200px',
+                                    maxHeight: '350px',
                                     objectFit: 'cover',
                                     width: '100%',
-                                    display: 'none', // Hidden by default, shown only if video fails
+                                    display: 'none',
                                   }}
                                   onError={(e) => {
                                     console.error(`Gagal memuat placeholder untuk ${item.judul || 'Video'}`);
@@ -152,11 +147,11 @@ const Testimoni = () => {
                             ) : (
                               <img
                                 src={`http://145.79.8.133:5000${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
-                                alt={item.judul || 'Gambar Testimoni'} // Fallback alt text
-                                className="img-fluid rounded mb-3"
+                                alt={item.judul || 'Gambar Testimoni'}
+                                className="img-fluid rounded"
                                 style={{
-                                  maxHeight: '200px',
-                                  objectFit: 'cover',
+                                  height: '400px',
+                                  objectFit: 'contain',
                                   width: '100%',
                                 }}
                                 onError={(e) => {
@@ -166,10 +161,6 @@ const Testimoni = () => {
                               />
                             )}
                           </div>
-                          {/* Asumsi testimoni juga punya judul seperti dokumentasi */}
-                          {item.judul && <h5 className="fw-semibold text-secondary fs-16">{item.judul}</h5>}
-                          {/* Jika testimoni tidak punya judul, tapi punya konten teks lain, bisa ditampilkan di sini */}
-                          {item.deskripsi && <p className="text-muted">{item.deskripsi}</p>}
                         </motion.div>
                       </Col>
                     ))}

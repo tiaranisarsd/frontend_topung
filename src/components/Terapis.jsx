@@ -5,18 +5,18 @@ import terapisImage from '../terapis.png';
 const TerapisKami = ({ imageUrl, title, description, buttonText }) => {
   return (
     <div
-      className="position-relative w-75 mx-auto my-3 rounded overflow-hidden bg-light2"
+      className="position-relative w-100 mx-auto my-5 rounded overflow-hidden bg-light2"
       style={{
         backgroundImage: `url(${imageUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '300px',
+        height: '500px',
       }}
     >
       <div
         className="position-absolute bottom-0 w-100"
         style={{
-          height: '35%',
+          height: '25%',
           background: 'rgba(255, 255, 255, 0.7)',
           backdropFilter: 'blur(3px)',
         }}

@@ -10,7 +10,7 @@ const VisiMisi = () => {
         <Row className="mt-5">
           {/* Visi Section */}
           <Col sm={12} md={4} className="mb-4 d-flex justify-content-center">
-            <Card className="border-0 shadow-sm card-hover bgblue-opacity" style={{ width: '80%' }}>
+            <Card className="border-0 shadow-sm bgblue-opacity" style={{ width: '80%' }}>
               <Card.Body className="text-center">
                 <BsBinoculars size={50} className="text-blue mb-3" />
                 <Card.Title className="text-blue fw-bold">Visi</Card.Title>
@@ -23,7 +23,7 @@ const VisiMisi = () => {
 
           {/* Misi Section */}
           <Col sm={12} md={4} className="mb-4 d-flex justify-content-center">
-            <Card className="border-0 shadow-sm card-hover bgblue-opacity" style={{ width: '80%' }}>
+            <Card className="border-0 shadow-sm bgblue-opacity" style={{ width: '80%' }}>
               <Card.Body className="text-center">
                 <BsBullseye size={50} className="text-blue mb-3" />
                 <Card.Title className="text-blue fw-bold">Misi</Card.Title>
@@ -42,7 +42,7 @@ const VisiMisi = () => {
 
           {/* Nilai Section */}
           <Col sm={12} md={4} className="mb-4 d-flex justify-content-center">
-            <Card className="border-0 shadow-sm card-hover bgblue-opacity" style={{ width: '80%' }}>
+            <Card className="border-0 shadow-sm bgblue-opacity" style={{ width: '80%' }}>
               <Card.Body className="text-center">
                 <BsHandThumbsUp size={50} className="text-blue mb-3" />
                 <Card.Title className="text-blue fw-bold">Nilai</Card.Title>

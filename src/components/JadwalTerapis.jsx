@@ -181,7 +181,7 @@ const JadwalTerapis = () => {
                                     {canEdit && (
                                         <td>
                                             <Link to={`/jadwalTerapis/edit/users/${jadwal.userId}/${jadwal.id}`}
-                                                className="btn btn-sm btn-info me-2 text-white"
+                                                className="btn btn-sm btn-primary me-2 text-white"
                                             >
                                                 <FaEdit />
                                             </Link>

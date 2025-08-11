@@ -47,7 +47,7 @@ const CheckReservasiStatus = () => {
     };
 
     return (
-        <Container className="p-3">
+        <Container className="p-3 my-5">
             <ToastContainer position="bottom-end" className="p-3" style={{ zIndex: 9999, position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
                 <Toast 
                     onClose={() => setShowToast(false)} 
@@ -65,7 +65,7 @@ const CheckReservasiStatus = () => {
                 </Toast>
             </ToastContainer>
 
-            <fieldset className="mt-2 bg-light border rounded-3 p-3">
+            <fieldset className="mt-2 bgblue-opacity border rounded-3 p-3">
             <legend className="float-none w-auto px-2 fw-bold text-blue fs-4"><FcSearch /> Cek Status Reservasi</legend>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">

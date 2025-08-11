@@ -389,7 +389,7 @@ const getAvailableJadwalForTerapis = () => {
         <>
           {Array.isArray(users) && users.length > 0 ? (
             users.map((item) => (
-              <Card key={item.id} className="my-5 border-0 p-3 rounded bg-blue2 shadow-sm card-hover">
+              <Card key={item.id} className="my-5 border-0 p-3 rounded bgblue-opacity shadow-sm card-hover">
                 <Card.Body className="d-flex flex-column flex-md-row align-items-start gap-4 p-4">
                   <div className="text-center">
                     <img
@@ -404,9 +404,7 @@ const getAvailableJadwalForTerapis = () => {
                   <div className="flex-grow-1">
                     <h5 className="fw-bold text-blue mb-1">{item.nama}</h5>
                     <div className="d-flex justify-content-between align-items-center mb-4">
-                      <div className="text-muted text-blue d-flex align-items-center">
                         <MdLocationPin size={18} className="me-2 text-blue"/> {item.alamat || 'Alamat tidak tersedia'}
-                      </div>
                       <div>
                         <Button className="btn-reservasi rounded-pill px-3 px-lg-4 py-1 me-1 fw-bold fs-16" onClick={() => handleOpenModal(item)}>
                           Reservasi

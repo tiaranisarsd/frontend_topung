@@ -26,7 +26,7 @@ const Tahapan = () => {
     }, []);
 
     return (
-        <div className="tahapan-section bg-light2 py-5" id="tahapan">
+        <div className="tahapan-section my-5 bg-light2 py-5" id="tahapan">
             <div className="container">
                 <h2 className="text-center text-blue fw-bold my-4">Tahapan</h2>
                 <motion.img
@@ -34,8 +34,8 @@ const Tahapan = () => {
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                     src={tahapan}
                     alt="Tahapan Terapi"
-                    className="img-fluid mx-auto d-block rounded"
-                    style={{maxHeight: '300px'}}
+                    className="img-fluid w-100 mx-auto d-block rounded"
+                    style={{maxHeight: '500px', objectFit: 'cover'}}
                     onClick={() => openViewer(tahapan)}
                 />
 

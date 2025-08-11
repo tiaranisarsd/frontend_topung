@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaClock } from 'react-icons/fa';
+import { MdLocationPin, MdEvent } from 'react-icons/md';
 import axios from 'axios';
 
 const JadwalKegiatan = () => {
@@ -59,7 +60,7 @@ const JadwalKegiatan = () => {
 
         <div className="mb-4 d-flex justify-content-center">
         <select
-            className="form-select text-blue fw-bold bgblue-opacity"
+            className="form-select text-blue bgblue-opacity"
             style={{ maxWidth: '400px' }}
             onChange={(e) => setJenisKegiatan(e.target.value)}
             value={jenisKegiatan}
@@ -93,7 +94,7 @@ const JadwalKegiatan = () => {
             );
 
               return (
-                <Carousel.Item className='mx-lg-auto' id='jadwal' key={slideIndex}>
+                <Carousel.Item className='mx-lg-3' id='jadwal' key={slideIndex}>
                 <Row className="justify-content-center mx-lg-5 px-lg-5 mt-3">
                     {items.map((item) => (
                     <Col
@@ -102,30 +103,33 @@ const JadwalKegiatan = () => {
                         md={6}
                         className="d-flex justify-content-center mb-4"
                     >
-                        <div
-                        className="card m-1 py-1 shadow-sm bgblue-opacity"
-                        style={{ maxWidth: '320px', border: 'none' }}
-                        >
-                        <div className="text-blue mt-3 fw-bold rounded-top text-center">
-                            <h5 className="mb-1 text-blue fw-bold fs-5">
-                            {new Date(item.tanggal_waktu).toLocaleDateString('id-ID', {
-                                day: '2-digit',
-                                month: 'long',
-                                year: 'numeric',
-                            })}
-                            , {new Date(item.tanggal_waktu).toLocaleTimeString('id-ID', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: false,
-                            })}
-                            </h5>
-                            <p className="text-blue-50 m-0">{item.jenis_kegiatan}</p>
-                        </div>
-                        <div className="card-body text-blue text-center pt-2">
-                            <p><strong>Lokasi:</strong> {item.lokasi}</p>
-                            <p className="pt-1"><strong>Deskripsi:</strong> {item.deskripsi}</p>
-                        </div>
-                        </div>
+            <div
+            className="card w-75 border-0 fs-6 m-1 px-2 p-4 shadow-sm bgblue-opacity"
+          >
+            <div className="text-blue px-2 mt-3 rounded-top text-center">
+              <h5 className="text-blue-50 fs-4 fw-bold">{item.jenis_kegiatan}</h5>
+              <p className='fw-normal fs-5 px-2'>{item.deskripsi}</p>
+            </div>
+            <div className="card-body pt-0 text-blue">
+              <p className="text-blue mb-1">
+                <MdEvent className="me-1 text-blue" />
+                {new Date(item.tanggal_waktu).toLocaleDateString('id-ID', {
+                  day: '2-digit',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </p>
+              <p className="text-blue mb-1">
+                <FaClock size={14} className="me-2 text-blue" />
+                {new Date(item.tanggal_waktu).toLocaleTimeString('id-ID', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false,
+                })}
+              </p>
+              <p><MdLocationPin size={18} className="me-1 text-blue"/> {item.lokasi}</p>
+            </div>
+          </div>
                     </Col>
                     ))}
                 </Row>

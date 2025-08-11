@@ -8,9 +8,12 @@
 }
 
 .bg-light2 {
-    background-color: #FAFAFA;
+    background-color: #dde9fc96;
 }
 
+.bg-blue-secondary{
+  background-color: #5b8ddf;
+}
 
 .text-blue{
     color: #12175E;
@@ -24,8 +27,12 @@
   background-color: rgba(18, 23, 94, 0.4);
 } 
 
+.white-hover{
+  color: grey;
+}
+
 .bgblue-hover50:hover {
-  background-color: rgba(18, 23, 94, 0.6);
+  background-color: rgba(18, 23, 94, 0.8);
 } 
 
 .bgblue-opacity{
@@ -162,7 +169,7 @@
   }
 
   .bg-footer{
-    background-color: #F1F9FC;
+    background-color: #272828;
   }
 
 

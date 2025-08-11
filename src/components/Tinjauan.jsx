@@ -29,23 +29,24 @@ function Tinjauan() {
     getTinjauan();
   }, []);
 
-    const getItemsPerSlide = () => {
-      if (window.innerWidth < 768) { 
-        return 1;
-      } else {
-        return 2; 
-      }
+  const getItemsPerSlide = () => {
+    if (window.innerWidth < 768) { 
+      return 1;
+    } else {
+      // Perbaikan: Kembalikan 3 item untuk desktop
+      return 3; 
+    }
+  };
+
+  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerSlide(getItemsPerSlide());
     };
-  
-    const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
-  
-    useEffect(() => {
-      const handleResize = () => {
-        setItemsPerSlide(getItemsPerSlide());
-      };
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getTinjauan = async () => {
     setLoading(true);
@@ -102,10 +103,10 @@ function Tinjauan() {
 
   return (
     <>
-      <div className="py-5 bg-light2" id="tinjauan">
+      <div className="py-5 my-5 bg-light2" id="tinjauan">
         <Container>
           <h2 className="text-center text-blue fw-bold">Ulasan</h2>
-              <div className="mt-2 text-center mb-5">
+          <div className="mt-2 text-center mb-4">
             <h6 className="text-muted fw-normal">Kami sangat menghargai pengalaman Anda bersama layanan kami.</h6>
             <p>
               <FaCommentDots className="me-2 text-blue" />
@@ -130,24 +131,24 @@ function Tinjauan() {
               {error}
             </Alert>
           ) : (
-            <Row className="justify-content-center position-relative">
-              <Col xs={8}>
+            <Row className="justify-content-center position-relative mb-5">
+              <Col>
                 <Carousel
-                  interval={null}
                   activeIndex={index}
                   onSelect={handleSelect}
                   indicators={true}
-                  nextIcon={<FaChevronRight className="text-blue " size={26} />}
-                  prevIcon={<FaChevronLeft className="text-blue " size={26} />}
+                  nextIcon={<span className="carousel-control-next-icon" aria-hidden="true"><FaChevronRight className='text-blue' size={26} /></span>}
+                  prevIcon={<span className="carousel-control-prev-icon" aria-hidden="true"><FaChevronLeft className='text-blue' size={26} /></span>}
+                  interval={4000}
                 >
                   {chunkArray(tinjauan, itemsPerSlide).map((group, index) => (
                     <Carousel.Item key={index}>
-                      <Row className="justify-content-center mx-lg-5 px-lg-5 mt-3">
+                      <Row className="justify-content-center mt-3 mx-lg-5 px-lg-5">
                         {group.map((item) => (
-                          <Col key={item.id} xs={12} md={6} className="d-flex justify-content-center mb-3">
+                          <Col key={item.id} xs={12} md={4} className="d-flex justify-content-center mb-3">
                             <Card
                               className="shadow-sm p-2 text-center bgblue-opacity"
-                              style={{ width: "280px", border: "none", minHeight: '200px' }}
+                              style={{ width: '300px', border: 'none', height: '200px' }}
                             >
                               <Card.Body className="text-blue">
                                 <Card.Title>Nama: {item.nama}</Card.Title>

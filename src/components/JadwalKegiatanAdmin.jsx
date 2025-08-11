@@ -149,7 +149,7 @@ const JadwalKegiatan = () => {
                      users.role === "owner" || jadwalKegiatan.userId === users.id ? (
                      <><Link
                                       to={`/jadwalKegiatan/edit/${jadwalKegiatan.id}`}
-                                      className="btn btn-sm btn-info me-2 text-white"
+                                      className="btn btn-sm btn-primary me-2 text-white"
                                   >
                                       <FaEdit />
                                   </Link><Button

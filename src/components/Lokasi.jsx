@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Lokasi = () => {
   return (
-    <Container className="py-5" id='lokasi'>
+    <Container className="py-5 my-5" id='lokasi'>
       <h2 className="text-center fw-bold text-blue mb-5">Lokasi</h2>
       <Row className="d-flex justify-content-center">
         <Col sm={12} md={6} lg={4} className="mb-4">

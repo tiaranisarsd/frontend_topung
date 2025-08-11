@@ -57,7 +57,7 @@ function Sidebar({ isMobile }) {
               <Nav.Link
                 as={Link}
                 to={item.path}
-                className={`list-group-item text-blue list-group-item-action text-white text-center rounded-pill ${location.pathname.startsWith(item.path) ? 'bgblue-opacity50 bgblue-hover50' : 'bg-blue bgblue-hover50'}`}
+                className={`list-group-item border-1 text-blue text-white text-center rounded-pill ${location.pathname.startsWith(item.path) ? 'bg-blue-secondary' : 'bgblue-opacity50'}`}
               >
                 {item.icon} {item.label}
               </Nav.Link>
@@ -65,7 +65,7 @@ function Sidebar({ isMobile }) {
           ))}
 
           {isMobile && (
-            <Button variant="danger" className="mt-5 w-75" onClick={logout}>
+            <Button variant="danger" className="mt-5 w-75 rounded-pill px-3" onClick={logout}>
               <IoLogOut className='me-1' /> Keluar
             </Button>
           )}

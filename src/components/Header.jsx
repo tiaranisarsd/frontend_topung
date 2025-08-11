@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import { IoHome } from "react-icons/io5";
 import { FaUserDoctor } from "react-icons/fa6";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaBars} from "react-icons/fa";
 import logo from '../logo.png';
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function Header({ showLoginButtonInOffcanvas = true }) {
 
     return (
         <>
-            <Navbar expand="lg" fixed="top" variant="light" className="navbar nav-underline bg-light shadow-sm py-1 ">
+            <Navbar expand="lg" fixed="top" variant="light" className="navbar nav-underline bg-blue shadow-sm py-1 ">
                 <Container>
                     {/* Logo */}
                     <Navbar.Brand href="/">
@@ -36,46 +36,42 @@ function Header({ showLoginButtonInOffcanvas = true }) {
                     </Navbar.Brand>
 
                     {/* Toggle hanya muncul di mobile */}
-                    <Navbar.Toggle aria-controls="offcanvasNavbar" className=" d-lg-none p-1"
-                        style={{
-                            width: '35px',
-                            height: '35px',
-                            fontSize: '16px',
-
-                        }} />
+                                <Navbar.Toggle aria-controls="offcanvasNavbar" className="d-lg-none border-0 bg-blue">
+                                <FaBars size={24} color="white" />
+                                </Navbar.Toggle>
 
                     {/* MOBILE: Offcanvas untuk ukuran layar kecil */}
                     <Navbar.Offcanvas
                         id="offcanvasNavbar"
                         aria-labelledby="offcanvasNavbarLabel"
                         placement="start"
-                        className="nav-underline bg-light d-lg-none w-75"
+                        className="nav-underline bg-blue d-lg-none w-75"
                     >
                         <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id="offcanvasNavbarLabel" className="fw-bold text-blue">
+                            <Offcanvas.Title id="offcanvasNavbarLabel" className="fw-bold text-white">
                                 Menu
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className="d-flex flex-column mx-auto">
                             <Navbar.Collapse id="offcanvasNavbar" className="mx-auto">
-                                <Nav className="flex-column text-blue blue-hover mx-auto">
+                                <Nav className="flex-column text-white blue-hover mx-auto">
                                     <Nav.Link
                                         onClick={() => handleNavLinkClick("/")}
-                                        className={`text-blue blue-hover d-flex align-items-center ${activeLink === '/' ? 'active' : ''}`}
+                                        className={`text-white blue-hover d-flex align-items-center ${activeLink === '/' ? 'active' : ''}`}
                                         href="/"
                                     >
                                         <IoHome className="me-2" /> Beranda
                                     </Nav.Link>
                                     <Nav.Link
                                         onClick={() => handleNavLinkClick("/terapis")}
-                                        className={`text-blue d-flex align-items-center ${activeLink === '/terapis' ? 'active' : ''}`}
+                                        className={`text-white d-flex align-items-center ${activeLink === '/terapis' ? 'active' : ''}`}
                                         href="/terapis"
                                     >
                                         <FaUserDoctor className="me-2" /> Terapis
                                     </Nav.Link>
                                     <Nav.Link
                                         onClick={() => handleNavLinkClick("/tentang")}
-                                        className={`text-blue d-flex align-items-center ${activeLink === '/tentang' ? 'active' : ''}`}
+                                        className={`text-white d-flex align-items-center ${activeLink === '/tentang' ? 'active' : ''}`}
                                         href="/tentang"
                                     >
                                         <FaInfoCircle className="me-2" /> Tentang
@@ -101,24 +97,24 @@ function Header({ showLoginButtonInOffcanvas = true }) {
                     {/* DESKTOP: Nav & Login tampil horizontal */}
                     <div className="d-none d-lg-flex align-items-center justify-content-end flex-grow-1">
                         <Navbar.Collapse id="offcanvasNavbar" className="justify-content-between">
-                            <Nav className="d-flex text-blue blue-hover align-items-center justify-content-center flex-grow-1">
+                            <Nav className="d-flex text-white blue-hover align-items-center justify-content-center flex-grow-1">
                                  <Nav.Link
                                     onClick={() => handleNavLinkClick("/")}
-                                    className={`text-blue blue-hover d-flex align-items-center me-3 ${activeLink === '/' ? 'active' : ''}`}
+                                    className={`text-white blue-hover d-flex align-items-center me-3 ${activeLink === '/' ? 'active' : ''}`}
                                     href="/"
                                 >
                                     <IoHome className="me-2" /> Beranda
                                 </Nav.Link>
                                 <Nav.Link
                                     onClick={() => handleNavLinkClick("/terapis")}
-                                    className={`text-blue blue-hover d-flex align-items-center me-3 ${activeLink === '/terapis' ? 'active' : ''}`}
+                                    className={`text-white blue-hover d-flex align-items-center me-3 ${activeLink === '/terapis' ? 'active' : ''}`}
                                     href="/terapis"
                                 >
                                     <FaUserDoctor className="me-2" /> Terapis
                                 </Nav.Link>
                                 <Nav.Link
                                     onClick={() => handleNavLinkClick("/tentang")}
-                                    className={`text-blue blue-hover d-flex align-items-center me-3 ${activeLink === '/tentang' ? 'active' : ''}`}
+                                    className={`text-white blue-hover d-flex align-items-center me-3 ${activeLink === '/tentang' ? 'active' : ''}`}
                                     href="/tentang"
                                 >
                                     <FaInfoCircle className="me-2" /> Tentang

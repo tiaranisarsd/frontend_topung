@@ -41,7 +41,7 @@ const PelayananComponent = () => {
   return (
     <div className="py-5 my-5 bg-light2" id='pelayanan'>
       <Container>
-        <h2 className="text-center text-blue fw-bold mb-4">Pelayanan</h2>
+        <h2 className="text-center text-blue fw-bold mb-5">Pelayanan</h2>
         <Row className="justify-content-center">
           {layananData.map((layanan, index) => (
             <Col key={index} md={6} lg={4} className="mb-4 mt-3">
@@ -60,7 +60,7 @@ const PelayananComponent = () => {
                 >
                   <Card.Body className="text-center">
                     <div className="mb-3">{layanan.icon}</div>
-                    <Card.Title className="mb-2 text-blue fw-bold h6 ">{layanan.title}</Card.Title>
+                    <Card.Title className="mb-2 text-blue fw-bold h3 ">{layanan.title}</Card.Title>
                   </Card.Body>
                 </Card>
               </Link>

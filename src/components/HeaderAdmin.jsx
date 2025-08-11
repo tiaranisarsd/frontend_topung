@@ -39,7 +39,7 @@ const HeaderAdmin = () => {
 
   return (
     <>
-      <Navbar style={{ maxHeight: "80px" }} expand="lg" fixed="top" variant="light" className="bg-light2 shadow-sm py-1">
+      <Navbar style={{ maxHeight: "80px" }} expand="lg" fixed="top" variant="light" className="bg-blue shadow-sm py-1">
         <Container>
           <Navbar.Brand href="/users">
             <img
@@ -52,12 +52,12 @@ const HeaderAdmin = () => {
           </Navbar.Brand>
 
           <div className="d-flex"> 
-            <Button variant="danger" onClick={logout} className="d-none d-lg-block ms-2">
+            <Button variant="danger" onClick={logout} className="d-none d-lg-block rounded-pill px-4 ms-2">
               <IoLogOut className='me-1' /> Keluar
             </Button>
             
-            <Button onClick={() => setShowSidebar(true)} className="d-lg-none bgblue-hover border-0 bgblue-opacity">
-              <FaBars size={24} color="#12175E" />
+            <Button onClick={() => setShowSidebar(true)} className="d-lg-none border-0 bg-blue">
+              <FaBars size={24} color="white" />
             </Button>
           </div>
         </Container>
@@ -67,13 +67,13 @@ const HeaderAdmin = () => {
       <Offcanvas 
         id="offcanvasNavbar" 
         style={{width: "250px"}} 
-        className="bg-light2 shadow" 
+        className="bg-blue shadow" 
         show={showSidebar} 
         onHide={() => setShowSidebar(false)} 
         placement="start"
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className='text-blue fw-bold'>Menu Admin</Offcanvas.Title>
+          <Offcanvas.Title className='text-white fw-bold'>Menu Admin</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className='my-1 p-1 d-flex flex-column justify-content-center'>
           <Sidebar isMobile={true} />

@@ -70,7 +70,7 @@ const Dokumentasi = () => {
   }, []);
 
   return (
-    <div className="dokumentasi-page bg-white my-4 py-5" id="dokumentasi">
+    <div className="dokumentasi-page bg-white my-5 py-5" id="dokumentasi">
       <Container>
         <h2 className="text-center text-blue my-4 fw-bold">Dokumentasi</h2>
 
@@ -81,8 +81,8 @@ const Dokumentasi = () => {
             activeIndex={index}
             onSelect={handleSelect}
             indicators={true}
-            nextIcon={<FaChevronRight className='text-blue' size={26} />}
-            prevIcon={<FaChevronLeft className='text-blue' size={26} />}
+            nextIcon={<span className="carousel-control-next-icon" aria-hidden="true"><FaChevronRight className='text-blue' size={26} /></span>}
+            prevIcon={<span className="carousel-control-prev-icon" aria-hidden="true"><FaChevronLeft className='text-blue' size={26} /></span>}
             interval={4000}
           >
             {Array.from({ length: Math.ceil(dokumentasi.length / itemsPerSlide) }).map((_, slideIndex) => {
@@ -94,7 +94,7 @@ const Dokumentasi = () => {
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center">
                     {items.map((item) => (
-                      <Col md={5} className="mx-2 mb-4" key={item.id}>
+                      <Col md={5} className="mb-4" key={item.id}>
                         <motion.div
                           whileHover={{ scale: 1.02, cursor: 'pointer' }}
                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -111,7 +111,7 @@ const Dokumentasi = () => {
                                   muted
                                   className="img-fluid rounded mb-3"
                                   style={{
-                                    maxHeight: '200px',
+                                    height: '350px',
                                     objectFit: 'cover',
                                     width: '100%',
                                   }}
@@ -129,10 +129,10 @@ const Dokumentasi = () => {
                                   alt={`Placeholder untuk ${item.judul}`}
                                   className="img-fluid rounded mb-3"
                                   style={{
-                                    maxHeight: '200px',
+                                    height: '350px',
                                     objectFit: 'cover',
                                     width: '100%',
-                                    display: 'none', // Hidden by default, shown only if video fails
+                                    display: 'none', 
                                   }}
                                   onError={(e) => {
                                     console.error(`Gagal memuat placeholder untuk ${item.judul}`);
@@ -148,7 +148,7 @@ const Dokumentasi = () => {
                                 alt={item.judul}
                                 className="img-fluid rounded mb-3"
                                 style={{
-                                  maxHeight: '200px',
+                                  height: '350px',
                                   objectFit: 'cover',
                                   width: '100%',
                                 }}

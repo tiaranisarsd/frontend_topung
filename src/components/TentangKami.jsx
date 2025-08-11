@@ -38,7 +38,7 @@ const TentangKami = () => {
       </div>
 
       {/* Informasi tentang Totok Punggung */}
-      <Container className='my-5'>
+      <Container className='my-5 py-5'>
         <Row className="d-flex justify-content-center">
           <Col md={6} lg={5} className="mb-4 d-flex justify-content-end">
             <Card className="border-0 shadow-sm" style={{ backgroundColor: '#E9ECEF', width: '100%', height: 'fit-content' }}>
