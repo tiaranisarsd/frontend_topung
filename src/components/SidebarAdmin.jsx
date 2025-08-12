@@ -50,10 +50,10 @@ function Sidebar({ isMobile }) {
 
   return (
     <>
-      <div className='ms-lg-2 ' style={{ width: '200px', height: '100vh' }}>
-        <Nav className="flex-column ms-lg-2 ms-4 justify-content-center align-items-center h-75 pt-5 mt-4 me-lg-4 list-group" style={{position: 'fixed'}}>
+      <div className='ms-lg-2 ' style={{ width: '100%', height: '100vh' }}>
+        <Nav className="flex-column fs-14 ms-lg-2 ms-4 justify-content-center align-items-center h-75 pt-4 my-5 me-lg-4 list-group" style={{position: 'fixed'}}>
           {navItems.map((item) => (
-            <Nav.Item key={item.path} className={`w-100 my-1`}>
+            <Nav.Item key={item.path} className={`my-1`} style={{minWidth:'175px'}}>
               <Nav.Link
                 as={Link}
                 to={item.path}
