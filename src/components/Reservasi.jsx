@@ -29,7 +29,7 @@ const Reservasi = () => {
         setLoading(true);
         setError(null); 
         try {
-            const reservasiResponse = await axios.get('http://145.79.8.133:5000/reservasi');
+            const reservasiResponse = await axios.get(`${process.env.REACT_APP_API_URL}/reservasi`);
             setReservasi(reservasiResponse.data);
             setFilteredReservasi(reservasiResponse.data || []);
 
@@ -73,7 +73,7 @@ const Reservasi = () => {
     const confirmDelete = async () => {
         setIsDeleting(true); 
         try {
-            await axios.delete(`http://145.79.8.133:5000/reservasi/${reservasiToDelete}`);
+            await axios.delete(`${process.env.REACT_APP_API_URL}/reservasi/${reservasiToDelete}`);
             setShowDeleteModal(false);
             setToastMessage('Reservasi berhasil dihapus!');
             setToastBg('success');
@@ -129,7 +129,7 @@ const Reservasi = () => {
                 }
             }
 
-            await axios.patch(`http://145.79.8.133:5000/reservasi/status`, { id, status: nextStatus, jadwalId: jadwalId });
+            await axios.patch(`${process.env.REACT_APP_API_URL}/reservasi/status`, { id, status: nextStatus, jadwalId: jadwalId });
 
             setToastMessage('Status berhasil diperbarui!');
             setToastBg('success');
@@ -149,7 +149,7 @@ const Reservasi = () => {
     };
 
     const handleImageClick = (imageUrl) => {
-      const fullImageUrl = `http://145.79.8.133:5000${imageUrl}`;
+      const fullImageUrl = `${process.env.REACT_APP_API_URL}${imageUrl}`;
       setImageUrl(fullImageUrl);
       setShowImage(true);
       };
