@@ -16,7 +16,6 @@ const Dokumentasi = () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/dokumentasi`);
         const data = await response.json();
-        console.log("Data dokumentasi dari API:", data);
         setDokumentasi(data);
       } catch (error) {
         console.error('Gagal memuat dokumentasi:', error);
