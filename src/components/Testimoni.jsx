@@ -191,7 +191,7 @@ const Testimoni = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     src={mediaUrl}
                     controls
-                    className="media-fullscreen"
+                    className="media-fullscreen rounded"
                     onClick={(e) => e.stopPropagation()}
                     onError={() => alert('Gagal memuat video.')}
                   />
@@ -203,7 +203,7 @@ const Testimoni = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     src={mediaUrl}
                     alt="Gambar Fullscreen"
-                    className="media-fullscreen"
+                    className="media-fullscreen rounded"
                     onClick={(e) => e.stopPropagation()}
                     onError={() => alert('Gagal memuat gambar.')}
                   />

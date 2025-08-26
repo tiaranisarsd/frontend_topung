@@ -9,12 +9,13 @@ const Dokumentasi = () => {
   const [index, setIndex] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [mediaUrl, setMediaUrl] = useState('');
+  const [isVideo, setIsVideo] = useState(false);
 
   const getItemsPerSlide = useCallback(() => {
     if (window.innerWidth < 768) {
       return 1;
     } else {
-      return 3; 
+      return 3;
     }
   }, []);
 
@@ -33,14 +34,11 @@ const Dokumentasi = () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/dokumentasi`);
         const result = await response.json();
-
         setDokumentasi(Array.isArray(result.data) ? result.data : result);
-
       } catch (error) {
         console.error('Gagal memuat dokumentasi:', error);
       }
     };
-
     fetchDokumentasi();
   }, []);
 
@@ -54,9 +52,10 @@ const Dokumentasi = () => {
     setIndex(selectedIndex);
   };
 
-  const openViewer = useCallback((url) => {
+  const openViewer = useCallback((url, type) => {
     const fullUrl = `${process.env.REACT_APP_API_URL}${url}`;
     setMediaUrl(fullUrl);
+    setIsVideo(type === 'video');
     setIsViewerOpen(true);
     document.body.style.overflow = 'hidden';
   }, []);
@@ -64,8 +63,14 @@ const Dokumentasi = () => {
   const closeViewer = useCallback(() => {
     setIsViewerOpen(false);
     setMediaUrl('');
+    setIsVideo(false);
     document.body.style.overflow = 'unset';
   }, []);
+
+  // Fungsi cek apakah file video
+  const isVideoFile = (filePath) => {
+    return /\.(mp4|webm|ogg)$/i.test(filePath);
+  };
 
   return (
     <div className="dokumentasi-page bg-light my-5 py-5" id="dokumentasi">
@@ -91,34 +96,48 @@ const Dokumentasi = () => {
               return (
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center g-2">
-                    {items.map((item) => (
-                      <Col md={4} className="mt-2 mb-4" key={item.id}
-                        onClick={() => openViewer(item.gambar)}
-                        style={{ cursor: 'pointer', padding: '10px' }}
-                      >
-                        <motion.div
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                        >
-                          <div className="position-relative" style={{ maxHeight: '250px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <img
-                              src={`${process.env.REACT_APP_API_URL}${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
-                              alt={item.judul || 'Gambar Dokumentasi'}
-                              className="img-fluid rounded"
-                              style={{
-                                height: '300px',
-                                objectFit: 'cover',
-                                width: '100%',
-                              }}
-                              onError={(e) => {
-                                console.error(`Gagal memuat gambar untuk dokumentasi`);
-                                e.target.src = 'https://placehold.co/200x200?text=No+Image';
-                              }}
-                            />
-                          </div>
-                        </motion.div>
-                      </Col>
-                    ))}
+                    {items.map((item) => {
+                      const fileUrl = `${process.env.REACT_APP_API_URL}${item.gambar}`;
+                      const isVideo = isVideoFile(item.gambar);
+                      return (
+                        <Col md={4} className="mt-2 mb-4 text-center" key={item.id}>
+                          <motion.div
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => openViewer(item.gambar, isVideo ? 'video' : 'image')}
+                          >
+                            <div className="position-relative" style={{ maxHeight: '250px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              {isVideo ? (
+                                <video
+                                  src={fileUrl}
+                                  className="img-fluid media-rounded"
+                                  style={{ height: '300px', width: '100%', objectFit: 'cover' }}
+                                  muted
+                                  playsInline
+                                />
+                              ) : (
+                                <img
+                                  src={fileUrl}
+                                  alt={item.judul || 'Gambar Dokumentasi'}
+                                  className="img-fluid media-rounded"
+                                  style={{
+                                    height: '300px',
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                  }}
+                                  onError={(e) => {
+                                    console.error(`Gagal memuat gambar untuk dokumentasi`);
+                                    e.target.src = 'https://placehold.co/200x200?text=No+Image';
+                                  }}
+                                />
+                              )}
+                            </div>
+                            <p className="mt-2 fw-semibold">{item.judul}</p>
+                          </motion.div>
+                        </Col>
+                      );
+                    })}
                   </Row>
                 </Carousel.Item>
               );
@@ -138,17 +157,30 @@ const Dokumentasi = () => {
               onClick={closeViewer}
             >
               {mediaUrl && (
-                <motion.img
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0.8 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                  src={mediaUrl}
-                  alt="Gambar Fullscreen"
-                  className="media-fullscreen"
-                  onClick={(e) => e.stopPropagation()}
-                  onError={() => alert('Gagal memuat gambar.')}
-                />
+                isVideo ? (
+                  <motion.video
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0.8 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                    src={mediaUrl}
+                    controls
+                    autoPlay
+                    className="media-fullscreen media-rounded"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                ) : (
+                  <motion.img
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0.8 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                    src={mediaUrl}
+                    alt="Gambar Fullscreen"
+                    className="media-fullscreen media-rounded"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                )
               )}
               <motion.button
                 initial={{ opacity: 0, x: 20 }}
@@ -164,6 +196,39 @@ const Dokumentasi = () => {
           )}
         </AnimatePresence>
       </Container>
+
+      {/* CSS biar semua media rounded */}
+      <style>{`
+        .media-rounded {
+          border-radius: 15px;
+        }
+        .media-fullscreen {
+          max-height: 90vh;
+          max-width: 90vw;
+          display: block;
+          margin: auto;
+          object-fit: contain;
+        }
+        .modal-backdrop-custom {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1050;
+        }
+        .btn-close-custom {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          background: transparent;
+          border: none;
+        }
+      `}</style>
     </div>
   );
 };
