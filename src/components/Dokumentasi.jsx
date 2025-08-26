@@ -14,7 +14,7 @@ const Dokumentasi = () => {
   useEffect(() => {
     const fetchDokumentasi = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}:5000/dokumentasi`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/dokumentasi`);
         const data = await response.json();
         setDokumentasi(data);
       } catch (error) {
@@ -54,7 +54,7 @@ const Dokumentasi = () => {
   }, []);
 
   const openViewer = useCallback((url, isVid = false) => {
-    const fullUrl = `${process.env.REACT_APP_API_URL}:5000${url}`;
+    const fullUrl = `${process.env.REACT_APP_API_URL}${url}`;
     setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
@@ -93,7 +93,7 @@ const Dokumentasi = () => {
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center">
                     {items.map((item) => (
-                      <Col md={5} className="mb-4" key={item.id}>
+                      <Col md={4} className="mb-4" key={item.id}>
                         <motion.div
                           whileHover={{ scale: 1.02, cursor: 'pointer' }}
                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -122,7 +122,7 @@ const Dokumentasi = () => {
                                     }
                                   }}
                                 >
-                                  <source src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}`} type="video/mp4" />
+                                  <source src={`${process.env.REACT_APP_API_URL}${item.gambar}`} type="video/mp4" />
                                   Browser Anda tidak mendukung tag video.
                                 </video>
                                 <img
@@ -145,7 +145,7 @@ const Dokumentasi = () => {
                               </>
                             ) : (
                               <img
-                                src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
+                                src={`${process.env.REACT_APP_API_URL}${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul}
                                 className="img-fluid rounded mb-3"
                                 style={{
