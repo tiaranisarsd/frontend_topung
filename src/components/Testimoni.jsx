@@ -91,7 +91,7 @@ const Testimoni = () => {
               );
               return (
                 <Carousel.Item key={slideIndex}>
-                  <Row className="justify-content-center g-2">
+                  <Row className="justify-content-center">
                     {items.map((item) => (
                       <Col md={4} className="mt-2 mb-4" key={item.id}
                         onClick={() =>

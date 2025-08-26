@@ -80,8 +80,8 @@ const Dokumentasi = () => {
             activeIndex={index}
             onSelect={handleSelect}
             indicators={true}
-            nextIcon={<span className="carousel-control-next-icon" aria-hidden="true"><FaChevronRight className='text-blue' size={26} /></span>}
-            prevIcon={<span className="carousel-control-prev-icon" aria-hidden="true"><FaChevronLeft className='text-blue' size={26} /></span>}
+            nextIcon={<span className="rounded-circle bg-white p-2 shadow-sm"><FaChevronRight className='text-blue fs-4' /></span>}
+            prevIcon={<span className="rounded-circle bg-white p-2 shadow-sm"><FaChevronLeft className='text-blue fs-4' /></span>}
             interval={4000}
           >
             {Array.from({ length: Math.ceil(dokumentasi.length / itemsPerSlide) }).map((_, slideIndex) => {
