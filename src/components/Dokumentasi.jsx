@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
 import { FaChevronLeft, FaChevronRight, FaPlay } from 'react-icons/fa';
@@ -11,10 +12,28 @@ const Dokumentasi = () => {
   const [mediaUrl, setMediaUrl] = useState('');
   const [isVideo, setIsVideo] = useState(false);
 
+  const getItemsPerSlide = useCallback(() => {
+    if (window.innerWidth < 768) {
+      return 1;
+    } else {
+      return 3;
+    }
+  }, []);
+
+  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerSlide(getItemsPerSlide());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     const fetchDokumentasi = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}:5000/dokumentasi`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/dokumentasi`);
         const data = await response.json();
         setDokumentasi(data);
       } catch (error) {
@@ -35,26 +54,8 @@ const Dokumentasi = () => {
     setIndex(selectedIndex);
   };
 
-  const getItemsPerSlide = () => {
-    if (window.innerWidth < 768) {
-      return 1;
-    } else {
-      return 3;
-    }
-  };
-
-  const [itemsPerSlide, setItemsPerSlide] = useState(getItemsPerSlide());
-
-  useEffect(() => {
-    const handleResize = () => {
-      setItemsPerSlide(getItemsPerSlide());
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   const openViewer = useCallback((url, isVid = false) => {
-    const fullUrl = `${process.env.REACT_APP_API_URL}:5000${url}`;
+    const fullUrl = `${process.env.REACT_APP_API_URL}${url}`;
     setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
@@ -67,6 +68,10 @@ const Dokumentasi = () => {
     setIsVideo(false);
     document.body.style.overflow = 'unset';
   }, []);
+
+  const isVideoFile = (filePath) => {
+    return /\.(mp4|webm|ogg)$/i.test(filePath);
+  };
 
   return (
     <div className="dokumentasi-page bg-white my-5 py-5" id="dokumentasi">
@@ -91,79 +96,73 @@ const Dokumentasi = () => {
               );
               return (
                 <Carousel.Item key={slideIndex}>
-                  <Row className="justify-content-center">
-                    {items.map((item) => (
-                      <Col md={5} className="mb-4" key={item.id}>
-                        <motion.div
-                          whileHover={{ scale: 1.02, cursor: 'pointer' }}
-                          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                          className="bg-light rounded text-center p-4 shadow-sm"
-                          onClick={() =>
-                            openViewer(item.gambar, item.gambar.endsWith('.mp4') || item.gambar.endsWith('.webm') || item.gambar.endsWith('.mov'))
-                          }
-                        >
-                          <div className="position-relative">
-                            {item.gambar && (item.gambar.endsWith('.mp4') || item.gambar.endsWith('.webm') || item.gambar.endsWith('.mov')) ? (
-                              <>
-                                <video
-                                  preload="metadata"
-                                  muted
-                                  className="img-fluid rounded mb-3"
-                                  style={{
-                                    height: '350px',
-                                    objectFit: 'cover',
-                                    width: '100%',
-                                  }}
-                                  onError={(e) => {
-                                    console.error(`Gagal memuat video thumbnail untuk ${item.media}`);
-                                    e.target.style.display = 'none';
-                                    if (e.target.nextSibling) {
-                                      e.target.nextSibling.style.display = 'block';
-                                    }
-                                  }}
-                                >
-                                  <source src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}`} type="video/mp4" />
-                                  Browser Anda tidak mendukung tag video.
-                                </video>
+                  <Row className="justify-content-center g-2">
+                    {items.map((item) => {
+                      const fileUrl = `${process.env.REACT_APP_API_URL}${item.gambar}`;
+                      const isVideo = isVideoFile(item.gambar);
+                      return (
+                        <Col md={4} className="mb-4" key={item.id}>
+                          <motion.div
+                            whileHover={{ scale: 1.02, cursor: 'pointer' }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                            className="bg-light rounded text-center p-4 shadow-sm"
+                            onClick={() =>
+                              openViewer(item.gambar, isVideo ? 'video' : 'image')
+                            }
+                          >
+                            <div className="position-relative">
+                              {isVideo ? (
+                                <>
+                                  <video
+                                    src={fileUrl}
+                                    className="img-fluid media-rounded"
+                                    style={{ height: '300px', width: '100%', objectFit: 'cover' }}
+                                    muted
+                                    playsInline
+                                    onError={(e) => {
+                                      console.error(`Gagal memuat video thumbnail untuk ${item.gambar}`);
+                                      e.target.style.display = 'none';
+                                      if (e.target.nextSibling) {
+                                        e.target.nextSibling.style.display = 'block';
+                                      }
+                                    }}
+                                  >
+                                    Browser Anda tidak mendukung tag video.
+                                  </video>
+                                  <img
+                                    src="https://placehold.co/300x300?text=Video+Thumbnail+Failed"
+                                    alt={`Placeholder untuk ${item.judul || 'Video'}`}
+                                    className="img-fluid media-rounded"
+                                    style={{
+                                      height: '300px',
+                                      width: '100%',
+                                      objectFit: 'cover',
+                                      display: 'none',
+                                    }}
+                                  />
+                                </>
+                              ) : (
                                 <img
-                                  src="https://placehold.co/200x200?text=Video+Thumbnail"
-                                  alt={`Placeholder untuk ${item.judul}`}
-                                  className="img-fluid rounded mb-3"
+                                  src={fileUrl}
+                                  alt={item.judul || 'Gambar Dokumentasi'}
+                                  className="img-fluid media-rounded"
                                   style={{
-                                    height: '350px',
+                                    height: '300px',
                                     objectFit: 'cover',
                                     width: '100%',
-                                    display: 'none', 
                                   }}
                                   onError={(e) => {
-                                    console.error(`Gagal memuat placeholder untuk ${item.judul}`);
+                                    console.error(`Gagal memuat gambar untuk dokumentasi`);
+                                    e.target.src = 'https://placehold.co/200x200?text=No+Image';
                                   }}
                                 />
-                                <div className="video-icon-overlay" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                                  <FaPlay className="text-white" size={24} />
-                                </div>
-                              </>
-                            ) : (
-                              <img
-                                src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
-                                alt={item.judul}
-                                className="img-fluid rounded mb-3"
-                                style={{
-                                  height: '350px',
-                                  objectFit: 'cover',
-                                  width: '100%',
-                                }}
-                                onError={(e) => {
-                                  console.error(`Gagal memuat gambar untuk ${item.judul}`);
-                                  e.target.src = 'https://placehold.co/200x200?text=No+Image';
-                                }}
-                              />
-                            )}
-                          </div>
-                          <h5 className="fw-semibold text-secondary fs-16">{item.judul}</h5>
-                        </motion.div>
-                      </Col>
-                    ))}
+                              )}
+                            </div>
+                            <p className="mt-2 fw-semibold">{item.judul}</p>
+                          </motion.div>
+                        </Col>
+                      );
+                    })}
                   </Row>
                 </Carousel.Item>
               );
@@ -191,6 +190,7 @@ const Dokumentasi = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     src={mediaUrl}
                     controls
+                    autoPlay
                     className="media-fullscreen"
                     onClick={(e) => e.stopPropagation()}
                     onError={() => alert('Gagal memuat video.')}

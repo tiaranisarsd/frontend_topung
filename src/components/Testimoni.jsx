@@ -93,7 +93,6 @@ const Testimoni = () => {
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center g-2">
                     {items.map((item) => (
-                      // PERBAIKAN: Ubah md={3} agar 3 kartu muat di desktop
                       <Col md={4} className="mt-2 mb-4" key={item.id}
                         onClick={() =>
                           openViewer(item.media, item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov'))
@@ -110,7 +109,7 @@ const Testimoni = () => {
                                 <video
                                   preload="metadata"
                                   muted
-                                  className="img-fluid rounded-3"
+                                  className="img-fluid rounded"
                                   style={{
                                     height: '350px',
                                     objectFit: 'cover',
@@ -130,7 +129,7 @@ const Testimoni = () => {
                                 <img
                                   src="https://placehold.co/200x200?text=Video+Thumbnail"
                                   alt={`Placeholder untuk ${item.judul || 'Video'}`}
-                                  className="img-fluid rounded-3"
+                                  className="img-fluid rounded"
                                   style={{
                                     maxHeight: '350px',
                                     objectFit: 'cover',
@@ -149,7 +148,7 @@ const Testimoni = () => {
                               <img
                                 src={`${process.env.REACT_APP_API_URL}${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul || 'Gambar Testimoni'}
-                                className="img-fluid rounded-3"
+                                className="img-fluid rounded"
                                 style={{
                                   height: '400px',
                                   objectFit: 'contain',
