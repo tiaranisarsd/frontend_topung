@@ -15,7 +15,7 @@ const Testimoni = () => {
     if (window.innerWidth < 768) {
       return 1;
     } else {
-      return 2;
+      return 3;
     }
   }, []);
 
@@ -93,7 +93,8 @@ const Testimoni = () => {
                 <Carousel.Item key={slideIndex}>
                   <Row className="justify-content-center g-2">
                     {items.map((item) => (
-                      <Col md={3} className="mt-2 mb-4" key={item.id}
+                      // PERBAIKAN: Ubah md={3} agar 3 kartu muat di desktop
+                      <Col md={4} className="mt-2 mb-4" key={item.id}
                         onClick={() =>
                           openViewer(item.media, item.media.endsWith('.mp4') || item.media.endsWith('.webm') || item.media.endsWith('.mov'))
                         }
@@ -109,7 +110,7 @@ const Testimoni = () => {
                                 <video
                                   preload="metadata"
                                   muted
-                                  className="img-fluid rounded"
+                                  className="img-fluid rounded-3"
                                   style={{
                                     height: '350px',
                                     objectFit: 'cover',
@@ -129,7 +130,7 @@ const Testimoni = () => {
                                 <img
                                   src="https://placehold.co/200x200?text=Video+Thumbnail"
                                   alt={`Placeholder untuk ${item.judul || 'Video'}`}
-                                  className="img-fluid rounded"
+                                  className="img-fluid rounded-3"
                                   style={{
                                     maxHeight: '350px',
                                     objectFit: 'cover',
@@ -148,7 +149,7 @@ const Testimoni = () => {
                               <img
                                 src={`${process.env.REACT_APP_API_URL}${item.media}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul || 'Gambar Testimoni'}
-                                className="img-fluid rounded"
+                                className="img-fluid rounded-3"
                                 style={{
                                   height: '400px',
                                   objectFit: 'contain',
@@ -191,7 +192,7 @@ const Testimoni = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     src={mediaUrl}
                     controls
-                    className="media-fullscreen"
+                    className="media-fullscreen rounded"
                     onClick={(e) => e.stopPropagation()}
                     onError={() => alert('Gagal memuat video.')}
                   />
@@ -203,7 +204,7 @@ const Testimoni = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     src={mediaUrl}
                     alt="Gambar Fullscreen"
-                    className="media-fullscreen"
+                    className="media-fullscreen rounded"
                     onClick={(e) => e.stopPropagation()}
                     onError={() => alert('Gagal memuat gambar.')}
                   />

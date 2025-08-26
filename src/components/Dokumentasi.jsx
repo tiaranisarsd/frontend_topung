@@ -14,7 +14,7 @@ const Dokumentasi = () => {
   useEffect(() => {
     const fetchDokumentasi = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/dokumentasi`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}:5000/dokumentasi`);
         const data = await response.json();
         setDokumentasi(data);
       } catch (error) {
@@ -39,7 +39,7 @@ const Dokumentasi = () => {
     if (window.innerWidth < 768) {
       return 1;
     } else {
-      return 2;
+      return 3;
     }
   };
 
@@ -54,7 +54,7 @@ const Dokumentasi = () => {
   }, []);
 
   const openViewer = useCallback((url, isVid = false) => {
-    const fullUrl = `${process.env.REACT_APP_API_URL}${url}`;
+    const fullUrl = `${process.env.REACT_APP_API_URL}:5000${url}`;
     setMediaUrl(fullUrl);
     setIsVideo(isVid);
     setIsViewerOpen(true);
@@ -115,12 +115,14 @@ const Dokumentasi = () => {
                                     width: '100%',
                                   }}
                                   onError={(e) => {
-                                    console.error(`Gagal memuat video thumbnail untuk ${item.gambar}`);
-                                    e.target.style.display = 'none'; 
-                                    e.target.nextSibling.style.display = 'block'; 
+                                    console.error(`Gagal memuat video thumbnail untuk ${item.media}`);
+                                    e.target.style.display = 'none';
+                                    if (e.target.nextSibling) {
+                                      e.target.nextSibling.style.display = 'block';
+                                    }
                                   }}
                                 >
-                                  <source src={`${process.env.REACT_APP_API_URL}${item.gambar}`} type="video/mp4" />
+                                  <source src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}`} type="video/mp4" />
                                   Browser Anda tidak mendukung tag video.
                                 </video>
                                 <img
@@ -143,7 +145,7 @@ const Dokumentasi = () => {
                               </>
                             ) : (
                               <img
-                                src={`${process.env.REACT_APP_API_URL}${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
+                                src={`${process.env.REACT_APP_API_URL}:5000${item.gambar}` || 'https://placehold.co/200x200?text=No+Image'}
                                 alt={item.judul}
                                 className="img-fluid rounded mb-3"
                                 style={{
