@@ -30,7 +30,7 @@ const JadwalTerapis = () => {
             setJadwal([]);
             setLoading(false);
         }
-    }, [selectedUserId]);
+    }, [selectedUserId, users]);
 
     const getUsers = async () => {
         setLoading(true);
@@ -83,7 +83,7 @@ const JadwalTerapis = () => {
             setMsg("Jadwal berhasil dihapus!");
             setShowToast(true);
             setShowDeleteModal(false);
-            getJadwalByUser(selectedUserId); // Refresh data setelah penghapusan
+            getJadwalByUser(selectedUserId);
         } catch (error) {
             console.error("Error deleting jadwal:", error);
             setMsg(error.response ? error.response.data.msg : "Gagal menghapus jadwal. Silakan coba lagi.");
@@ -102,14 +102,12 @@ const JadwalTerapis = () => {
         }
     };
 
-    const canEdit = users && (users.id === Number(selectedUserId));
+    const canEdit = users && (users.role === 'owner' || users.id === Number(selectedUserId));
 
-    // Filter usersList berdasarkan role: owner melihat semua, non-owner hanya melihat dirinya sendiri
     const filteredUsersList = users && users.role === 'owner'
         ? usersList
         : usersList.filter(user => user.id === users?.id);
 
-    // Secara otomatis pilih ID pengguna yang login jika bukan owner
     useEffect(() => {
         if (users && users.role !== 'owner' && filteredUsersList.length > 0) {
             setSelectedUserId(users.id.toString());
@@ -136,7 +134,7 @@ const JadwalTerapis = () => {
                     value={selectedUserId}
                     onChange={(e) => setSelectedUserId(e.target.value)}
                     className="custom-select"
-                    disabled={users && users.role !== 'owner'} 
+                    disabled={users && users.role !== 'owner'}
                 >
                     <option value="" disabled>Pilih Terapis</option>
                     {filteredUsersList.map((user) => (
