@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Toast, ToastContainer, Form, Button } from "react-bootstrap";
 import { FaSave, FaTimesCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const FormAddJadwalTerapis = () => {
   const [hari, setHari] = useState("");
@@ -14,13 +14,13 @@ const FormAddJadwalTerapis = () => {
   const [showToast, setShowToast] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { userId } = useParams(); 
+  const { userId } = useParams();
   const { users } = useSelector(state => state.auth);
 
   useEffect(() => {
     getUsers();
     if (userId) {
-      setUsersId(userId); 
+      setUsersId(userId);
     }
   }, [userId]);
 
@@ -71,8 +71,8 @@ const FormAddJadwalTerapis = () => {
   };
 
   const filteredUsersList = users && users.role === 'owner'
-    ? user 
-    : user.filter(user => user.id === users?.id); 
+    ? user
+    : user.filter(user => user.id === users?.id);
 
   useEffect(() => {
     if (users && users.role !== 'owner' && filteredUsersList.length > 0) {
@@ -111,9 +111,9 @@ const FormAddJadwalTerapis = () => {
                 className="form-select"
                 value={usersId}
                 onChange={(e) => setUsersId(e.target.value)}
-                disabled={usersId} 
+                disabled={users && users.role !== 'owner'}
               >
-                <option value={user.id} disabled>Pilih Terapis</option>
+                <option value="" disabled>Pilih Terapis</option>
                 {filteredUsersList.map((user) => (
                   <option key={user.id} value={user.id}>
                     {user.nama}
@@ -135,7 +135,7 @@ const FormAddJadwalTerapis = () => {
                     checked={hari === day}
                     onChange={(e) => setHari(e.target.value)}
                     className="me-3"
-                    style={{ minWidth: '100px' }} // Memberikan lebar minimum agar rapi
+                    style={{ minWidth: '100px' }}
                   />
                 ))}
               </div>
